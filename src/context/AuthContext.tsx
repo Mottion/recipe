@@ -2,11 +2,11 @@ import React, { ReactNode, useContext, useState } from "react";
 import { createContext } from "react";
 import { AuthContextProps } from "../@types/AuthContextProps";
 import { UserProps } from "../@types/UserProps";
-import { BaseComponentProps } from "../@types/BaseComponentProps";
+import { ContextProps } from "../@types/ContextProps";
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
-export const AuthProvider: React.FC<BaseComponentProps> = ({ children }) => {
+export const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   const [user, setUser] = useState<UserProps | null>(null);
   
   return (

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
 
-export interface BaseComponentProps {
+export interface ContextProps {
   children: ReactNode
 }
