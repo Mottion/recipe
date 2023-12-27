@@ -8,7 +8,7 @@ const Routes = () => {
   const {user} = useAuth();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       {user ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   )
