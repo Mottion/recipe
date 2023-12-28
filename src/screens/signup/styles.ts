@@ -9,9 +9,9 @@ export const styles = StyleSheet.create({
     padding: 30,
   },
   contentWrapper: {
+    marginTop: 30,
     flex: 1,
     width: "100%",
-    justifyContent: "center",
     alignItems: "center",
   },
   title: {
@@ -21,20 +21,10 @@ export const styles = StyleSheet.create({
     fontSize: 32,
     marginBottom: 5
   },
-  forgetWrapper: {
-    width: "100%",
-    alignItems: "flex-end"
-  },
-  forget: {
-    marginTop: 5,
-    fontSize: 15,
-    fontFamily: "Roboto-Medium",
-    color: theme.blue,
-    marginRight: 10
-  },
   signup: {
     color: theme.blue,
     fontSize: 15,
     fontFamily: "Roboto-Medium",
   }
 })
+
