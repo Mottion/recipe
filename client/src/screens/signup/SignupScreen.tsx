@@ -7,6 +7,7 @@ import InputImage from "../../components/InputImage/InputImage";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import { useNotify } from "../../context/NotifyContext";
 
 const SignupScreen: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -14,13 +15,19 @@ const SignupScreen: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [image, setImage] = useState<string | null>(null);
   const navigation = useNavigation();
+  const {showNotify} = useNotify();
 
   function handleGoogleSignup(){
 
   }
 
   function handleSignup(){
+    if(!name || !email || !password){
+      showNotify("some fields are empty!", "negative")
+      return;
+    }
 
+    
   }
 
   return (

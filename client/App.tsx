@@ -1,6 +1,8 @@
 import Routes from './src/routes/Router';
 import { AuthProvider } from './src/context/AuthContext';
 import { useFonts } from 'expo-font';
+import Notify from './src/components/Notify/Notify';
+import { NotifyContextProvider } from './src/context/NotifyContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,8 +14,11 @@ export default function App() {
   if (!fontsLoaded) {return null;}
 
   return (
-    <AuthProvider>
-      <Routes/>
-    </AuthProvider>
+    <NotifyContextProvider>
+      <AuthProvider>
+        <Routes/>
+        <Notify />
+      </AuthProvider>
+    </NotifyContextProvider>
   );
 }
