@@ -8,6 +8,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 30,
   },
+  scroll: {
+    flex: 1, 
+    width: "100%",
+  },
   contentWrapper: {
     marginTop: 30,
     flex: 1,

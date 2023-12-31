@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Image, Text, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import * as ImagePicker from 'expo-image-picker';
+import { InputImageProps } from "../../@types/InputImageProps";
 
-const InputImage: React.FC = () => {
-  const [image, setImage] = useState<string | null>();
+const InputImage: React.FC<InputImageProps> = ({image, setImage}) => {
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library

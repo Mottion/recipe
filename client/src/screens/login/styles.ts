@@ -8,6 +8,13 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: 30,
   },
+  scroll: {
+    width: "100%",
+  },
+  scrollContainer: {
+    justifyContent: "center", 
+    flex: 1
+  },
   contentWrapper: {
     flex: 1,
     width: "100%",
