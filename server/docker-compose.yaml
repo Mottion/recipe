@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    container_name: recipe
+    environment:
+      POSTGRES_PASSWORD: recipe123
+      POSTGRES_DB: recipe
+    volumes:
+      - recipe:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  recipe: 

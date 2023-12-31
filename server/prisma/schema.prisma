@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   Int @id @default(autoincrement())
+  name                 String
+  email                String
+  password             String
+  followers            User[] @relation(name: "Followers")
+  follows              User[] @relation(name: "Followers")
+  recipes              Recipe[] @relation("RecipeOwner")
+  favorites            Recipe[] @relation("Favorite")
+  notifications        Notification[]
+  messagesSent         Message[] @relation("Sent")
+  messagesReceived     Message[] @relation("Received")
+
+}
+
+model Recipe {
+  id                  Int @id @default(autoincrement())
+  ownerId             Int 
+  tagId               Int
+  name                String
+  description         String
+  ingredients         String
+  image               String
+  rating              Float
+  methodOfPreparation String
+  kcal                Int 
+  owner               User @relation("RecipeOwner", fields: [ownerId], references: [id])
+  favoritesBy         User[] @relation("Favorite")
+  tag                 Tag @relation(fields: [tagId], references: [id])
+}
+
+model Tag {
+  id                   Int @id @default(autoincrement())
+  name                 String
+  image                String
+  recipes              Recipe[]
+}
+
+model Notification {
+  id                   Int @id @default(autoincrement())
+  image                String
+  name                 String
+  description          String
+  forUsers             User[]
+}
+
+model Message {
+  id              Int @id @default(autoincrement())
+  senderId        Int
+  receiverId      Int 
+  text            String
+  created         Int
+  receiver        User @relation("Received", fields: [receiverId], references: [id])
+  sender          User @relation("Sent", fields: [senderId], references: [id])
+}
