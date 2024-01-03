@@ -2,12 +2,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { theme } from "../../globalStyle/globalStyle";
 import { styles } from "./styles";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, useAnimatedValue } from "react-native";
 import InputImage from "../../components/InputImage/InputImage";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useNotify } from "../../context/NotifyContext";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import auth from "../../services/firebaseConfig";
+import { useAuth } from "../../context/AuthContext";
 
 const SignupScreen: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -16,6 +19,7 @@ const SignupScreen: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const navigation = useNavigation();
   const {showNotify} = useNotify();
+  const {login} = useAuth();
 
   function handleGoogleSignup(){
 
@@ -27,7 +31,20 @@ const SignupScreen: React.FC = () => {
       return;
     }
 
-    
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      login(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const ErrorMessages: any = {
+        "auth/email-already-in-use": "Email already in use!",
+        "auth/weak-password": "Password should be at least 6 characters!",
+        "auth/invalid-email": "Invalid email!",
+      }
+      showNotify(ErrorMessages[errorCode] || "Internal Server Error", "negative")
+    });
   }
 
   return (

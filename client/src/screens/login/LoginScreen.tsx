@@ -6,18 +6,40 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from "../../globalStyle/globalStyle";
 import { useNavigation } from "@react-navigation/native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import auth from "../../services/firebaseConfig";
+import { useNotify } from "../../context/NotifyContext";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigation = useNavigation();
+  const {showNotify} = useNotify();
+  const {login} = useAuth();
   
   function handleGoogleLogin(){
 
   }
 
   function handleLogin(){
+    if(!email || !password){
+      showNotify("some fields are empty!", "negative")
+      return;
+    }
 
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      login(userCredential.user)
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const ErrorMessages: any = {
+        "auth/invalid-email": "Email already in use!",
+        "auth/invalid-credential": "invalid credentials!",
+      }
+      showNotify(ErrorMessages[errorCode] || "Internal Server Error", "negative")
+    });
   }
 
   return (

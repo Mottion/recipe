@@ -5,7 +5,7 @@ import { ContextProps } from "../@types/ContextProps";
 const NotifyContext = createContext<NotifyContextProps>({} as NotifyContextProps);
 
 
-export const NotifyContextProvider: React.FC<ContextProps> = ({ children }) => {
+export const NotifyProvider: React.FC<ContextProps> = ({ children }) => {
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState<NotifyContextProps["type"]>("negative");

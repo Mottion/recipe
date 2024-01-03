@@ -1,5 +1,9 @@
+import { Unsubscribe, User } from "firebase/auth";
 import { UserProps } from "./UserProps";
 
 export interface AuthContextProps{
-  user: UserProps | null,
+  user: User | null,
+  login: (user: User) => void, 
+  logOut: () => void,
+  checkAuthentication: () => Unsubscribe,
 }
