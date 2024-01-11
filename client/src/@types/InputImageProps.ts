@@ -1,4 +1,6 @@
+import { ImagePickerAsset } from "expo-image-picker";
+
 export interface InputImageProps {
-  image: string | null,
-  setImage: (uri: string) => void;
+  image: ImagePickerAsset | null,
+  setImage: (uri: ImagePickerAsset) => void;
 }

@@ -2,49 +2,71 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { theme } from "../../globalStyle/globalStyle";
 import { styles } from "./styles";
-import { ScrollView, Text, View, useAnimatedValue } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import InputImage from "../../components/InputImage/InputImage";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useNotify } from "../../context/NotifyContext";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { AuthError, createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../services/firebaseConfig";
 import { useAuth } from "../../context/AuthContext";
+import { useServer } from "../../context/ServerContext";
+import { ImagePickerAsset } from "expo-image-picker";
 
 const SignupScreen: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<ImagePickerAsset | null>(null);
   const navigation = useNavigation();
   const {showNotify} = useNotify();
   const {login} = useAuth();
+  const server = useServer();
 
   function handleGoogleSignup(){
 
   }
 
-  function handleSignup(){
+  async function handleSignup(){
     if(!name || !email || !password){
       showNotify("some fields are empty!", "negative")
       return;
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       const user = userCredential.user;
       login(user);
+      uploadImage();
     })
-    .catch((error) => {
+    .catch((error: AuthError) => {
       const errorCode = error.code;
-      const ErrorMessages: any = {
-        "auth/email-already-in-use": "Email already in use!",
-        "auth/weak-password": "Password should be at least 6 characters!",
-        "auth/invalid-email": "Invalid email!",
-      }
-      showNotify(ErrorMessages[errorCode] || "Internal Server Error", "negative")
+      let errorMessage: string | undefined = getErrorMessage(errorCode);
+      showNotify(errorMessage || "Internal Server Error", "negative")
     });
+  }
+
+  async function uploadImage(){
+    const formData = new FormData();
+    const extension = image?.uri.split('.').pop();
+    const data = {
+      name: "name",
+      uri: image?.uri,
+      type: "image/"+ extension,
+    }
+    formData.append("file", data as any)
+
+    const response = await server.uploadImage(formData);
+  }
+
+  function getErrorMessage(errorCode: string){
+    switch(errorCode){
+      case "auth/email-already-in-use": return "Email already in use!";
+      case "auth/weak-password": return "Password should be at least 6 characters!";
+      case "auth/invalid-email": return "Invalid email!";
+      default: return undefined;
+    }
   }
 
   return (

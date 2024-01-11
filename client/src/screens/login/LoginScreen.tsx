@@ -1,15 +1,31 @@
-import React, { useState } from "react";
-import { Text, View, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { styles } from "./styles";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from "../../globalStyle/globalStyle";
 import { useNavigation } from "@react-navigation/native";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from "../../services/firebaseConfig";
+import {AuthError, signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
+import auth, { googleProvider } from "../../services/firebaseConfig";
 import { useNotify } from "../../context/NotifyContext";
 import { useAuth } from "../../context/AuthContext";
+import * as AuthSession from 'expo-auth-session';
+
+const CLIENT_ID = "8577072164-qtkmgtlbola39fb06hefja7u06m7pa86.apps.googleusercontent.com";
+const REDIRECT_URI = "https://auth.expo.io/@mottion/recipe";
+const SCOPE = encodeURI("profile email");
+const RESPONSE_TYPE = "tokens";
+
+//?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}
+const authUrl = `https://accounts.google.com/o/oauth2/v2/auth`;
+const redirectUri = AuthSession.makeRedirectUri({native: "https://auth.expo.io/@mottion/recipe"});
+const discovery = {
+  authorizationEndpoint: authUrl,
+};
+
+WebBrowser.maybeCompleteAuthSession();
+import * as WebBrowser from 'expo-web-browser';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -17,10 +33,28 @@ const LoginScreen: React.FC = () => {
   const navigation = useNavigation();
   const {showNotify} = useNotify();
   const {login} = useAuth();
-  
-  function handleGoogleLogin(){
 
+  const [request, response, promptAsync] = AuthSession.useAuthRequest(
+    {
+      clientId: "8577072164-qtkmgtlbola39fb06hefja7u06m7pa86.apps.googleusercontent.com",
+      redirectUri,
+      responseType: 'token id_token',
+      // responseType: AuthSession.ResponseType.Token,
+      scopes: ['profile', 'email'],
+    },
+    discovery
+  );
+
+  React.useEffect(() => {
+    if (response && response.type === 'success') {
+      const token = response.params.access_token;
+    }
+  }, [response]);
+  
+  async function handleGoogleLogin(){
+    promptAsync()
   }
+
 
   function handleLogin(){
     if(!email || !password){
@@ -32,14 +66,19 @@ const LoginScreen: React.FC = () => {
     .then((userCredential) => {
       login(userCredential.user)
     })
-    .catch((error) => {
+    .catch((error: AuthError) => {
       const errorCode = error.code;
-      const ErrorMessages: any = {
-        "auth/invalid-email": "Email already in use!",
-        "auth/invalid-credential": "invalid credentials!",
-      }
-      showNotify(ErrorMessages[errorCode] || "Internal Server Error", "negative")
+      let ErrorMessages: string | undefined = getErrorMessage(errorCode);
+      showNotify(ErrorMessages || "Internal Server Error", "negative");
     });
+  }
+
+  function getErrorMessage(errorCode: string){
+    switch(errorCode){
+      case "auth/invalid-email": return "Email already in use!";
+      case "auth/invalid-credential": return "invalid credentials!";
+      default: return undefined;
+    }
   }
 
   return (
