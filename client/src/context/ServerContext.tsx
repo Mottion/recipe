@@ -3,13 +3,14 @@ import { ServerContextProps } from "../@types/ServerContextProps";
 import { ContextProps } from "../@types/ContextProps";
 import api from "../services/axiosConfig";
 import { useAuth } from "./AuthContext";
-import { ImagePickerAsset } from "expo-image-picker";
-import { formToJSON } from "axios";
+import { useNotify } from "./NotifyContext";
+import { AxiosError } from "axios";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
 export const ServerProvider: React.FC<ContextProps> = ({children}) => {
-  const {user} = useAuth(); 
+  const {user} = useAuth();
+  const {showNotify} = useNotify();
 
   async function uploadImage(file: FormData){
     try{
@@ -20,8 +21,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
         }
       })
       return data;
-    }catch(error){
-      console.log(JSON.stringify(error))
+    }catch(error: any){
+      showNotify(error.response.data.message, "negative")
     }
   }
 

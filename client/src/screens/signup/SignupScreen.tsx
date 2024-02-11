@@ -8,16 +8,17 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useNotify } from "../../context/NotifyContext";
-import { AuthError, createUserWithEmailAndPassword } from "firebase/auth";
+import { AuthError, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import auth from "../../services/firebaseConfig";
 import { useAuth } from "../../context/AuthContext";
 import { useServer } from "../../context/ServerContext";
 import { ImagePickerAsset } from "expo-image-picker";
+import { baseUrl } from "../../services/axiosConfig";
 
 const SignupScreen: React.FC = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("Adrian");
+  const [email, setEmail] = useState<string>("adrianelizandro78@gmail.com");
+  const [password, setPassword] = useState<string>("Senha123");
   const [image, setImage] = useState<ImagePickerAsset | null>(null);
   const navigation = useNavigation();
   const {showNotify} = useNotify();
@@ -38,7 +39,12 @@ const SignupScreen: React.FC = () => {
     .then(async (userCredential) => {
       const user = userCredential.user;
       login(user);
-      uploadImage();
+      if(image){
+        const imageUrl = await uploadImage();
+        updateProfile(user, {
+          photoURL: `${baseUrl}/${imageUrl}`
+        })
+      }
     })
     .catch((error: AuthError) => {
       const errorCode = error.code;
@@ -58,6 +64,7 @@ const SignupScreen: React.FC = () => {
     formData.append("file", data as any)
 
     const response = await server.uploadImage(formData);
+    return response;
   }
 
   function getErrorMessage(errorCode: string){

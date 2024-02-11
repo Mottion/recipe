@@ -28,8 +28,8 @@ WebBrowser.maybeCompleteAuthSession();
 import * as WebBrowser from 'expo-web-browser';
 
 const LoginScreen: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("adrianelizandro78@gmail.com");
+  const [password, setPassword] = useState<string>("Senha123");
   const navigation = useNavigation();
   const {showNotify} = useNotify();
   const {login} = useAuth();
@@ -45,7 +45,7 @@ const LoginScreen: React.FC = () => {
     discovery
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (response && response.type === 'success') {
       const token = response.params.access_token;
     }
