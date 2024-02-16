@@ -8,12 +8,9 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { useNotify } from "../../context/NotifyContext";
-import { AuthError, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import auth from "../../services/firebaseConfig";
 import { useAuth } from "../../context/AuthContext";
 import { useServer } from "../../context/ServerContext";
 import { ImagePickerAsset } from "expo-image-picker";
-import { baseUrl } from "../../services/axiosConfig";
 
 const SignupScreen: React.FC = () => {
   const [name, setName] = useState<string>("Adrian");
@@ -35,22 +32,6 @@ const SignupScreen: React.FC = () => {
       return;
     }
 
-    createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      const user = userCredential.user;
-      login(user);
-      if(image){
-        const imageUrl = await uploadImage();
-        updateProfile(user, {
-          photoURL: `${baseUrl}/${imageUrl}`
-        })
-      }
-    })
-    .catch((error: AuthError) => {
-      const errorCode = error.code;
-      let errorMessage: string | undefined = getErrorMessage(errorCode);
-      showNotify(errorMessage || "Internal Server Error", "negative")
-    });
   }
 
   async function uploadImage(){
@@ -65,15 +46,6 @@ const SignupScreen: React.FC = () => {
 
     const response = await server.uploadImage(formData);
     return response;
-  }
-
-  function getErrorMessage(errorCode: string){
-    switch(errorCode){
-      case "auth/email-already-in-use": return "Email already in use!";
-      case "auth/weak-password": return "Password should be at least 6 characters!";
-      case "auth/invalid-email": return "Invalid email!";
-      default: return undefined;
-    }
   }
 
   return (
