@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -16,14 +16,18 @@ const multerInterceptor = {
 
 @Controller('user')
 export class UserController {
-
   constructor(
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ){}
 
   @Post("/uploadImage")
   @UseInterceptors(FileInterceptor("file", multerInterceptor))
   async uploadImage(@UploadedFile() file: Express.Multer.File){
     return await this.userService.checkFileType(file);
+  }
+
+  @Get("route")
+  async route(){
+    return "route";
   }
 }
