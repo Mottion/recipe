@@ -9,3 +9,7 @@
 - user jest para testes unitários
 - estudar o "testing nest" do nestjs
 - aplicar o Joi para verificar entradas
+
+# Padrões de código definidos:
+  - o arquivo usa o padrão dash-case.
+  - o dto usa o padrão: PascalCase do nome do arquivo + nome do model + Input/Output.
