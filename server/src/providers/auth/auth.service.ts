@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { UserService } from 'src/models/user/user.service';
-import { AccessTokenOutput } from './dto/outputs/access-token';
+import { AccessTokenDto } from './dto/access-token.dto';
 
 @Injectable()
 export class AuthService {
@@ -11,13 +11,13 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
   
-  async signIn(email: string, pass: string): Promise<AccessTokenOutput> {
+  async signIn(email: string, pass: string): Promise<AccessTokenDto> {
     const user = await this.usersService.findByEmail(email);
     if (user.password !== pass) {
       throw new UnauthorizedException();
     }
     const payload = { id: user.id, name: user.name };
 
-    return new AccessTokenOutput(await this.jwtService.signAsync(payload));
+    return new AccessTokenDto(await this.jwtService.signAsync(payload));
   }
 }

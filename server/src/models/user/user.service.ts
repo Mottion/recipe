@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, UnauthorizedException, UnsupportedMediaTypeException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
-import { createUserInput } from './dto/inputs/create';
+import { createUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { AccessTokenOutput } from 'src/providers/auth/dto/outputs/access-token';
-import { updateUserInput } from './dto/inputs/update';
+import { AccessTokenDto } from 'src/providers/auth/dto/access-token.dto';
+import { updateUserDto } from './dto/update-user-dto';
 const fs = require('fs');
 
 @Injectable()
@@ -40,10 +40,10 @@ export class UserService {
     return response;
   }
 
-  async create(user: createUserInput){
+  async create(user: createUserDto){
     const response = await this.userRepository.create(user);
     const payload = { id: response.id, name: response.name };
-    return new AccessTokenOutput(await this.jwtService.signAsync(payload));
+    return new AccessTokenDto(await this.jwtService.signAsync(payload));
   }
 
   async deleteById(id: string, req: Request){
@@ -52,7 +52,7 @@ export class UserService {
     return response
   }
 
-  async update(id: string, data: updateUserInput, req: Request){
+  async update(id: string, data: updateUserDto, req: Request){
     await this.checkAuthorization(id, req)
     const response = await this.userRepository.update(id, data);
     return response

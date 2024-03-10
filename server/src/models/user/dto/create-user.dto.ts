@@ -1,15 +1,16 @@
 import { Prisma } from "@prisma/client";
-import { createUserInput } from "../inputs/create";
 
-export class createUserOutput implements Omit<createUserInput, "password"> {
+export class createUserDto implements Prisma.UserCreateInput {
   name: string;
-  image: string | null;
   email: string;
+  image: string | null;
+  password: string;
   
   constructor(args: Prisma.UserCreateInput) {
     this.name = args.name;
     this.image = args.image;
     this.email = args.email;
+    this.password = args.password;
   }
 
   static validate(args: Prisma.UserCreateInput){

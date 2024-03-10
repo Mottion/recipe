@@ -42,7 +42,7 @@ model Recipe {
   tagId               String
   name                String
   description         String
-  ingredients         String
+  ingredients         String[]
   image               String
   rating              Float
   methodOfPreparation String

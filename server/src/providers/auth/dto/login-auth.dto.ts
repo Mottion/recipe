@@ -1,6 +1,6 @@
 import { User } from "@prisma/client"
 
-export class LoginInput {
+export class LoginAuthDto {
   email: string
   pass: string
 

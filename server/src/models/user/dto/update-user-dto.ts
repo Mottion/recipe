@@ -1,14 +1,14 @@
 import { Prisma } from "@prisma/client";
 
-export class updateUserInput implements Prisma.UserUpdateInput{
+export class updateUserDto implements Prisma.UserUpdateInput{
   name?: string | Prisma.StringFieldUpdateOperationsInput;
   image?: string | Prisma.NullableStringFieldUpdateOperationsInput;
-  password?: string | Prisma.StringFieldUpdateOperationsInput;
-  
+  email?: string | Prisma.StringFieldUpdateOperationsInput;
+
   constructor(args: Prisma.UserUpdateInput){
     this.name = args.name;
     this.image = args.image;
-    this.password = args.password;
+    this.email = args.email;
   }
 
   static validate(args: Prisma.UserUpdateInput){

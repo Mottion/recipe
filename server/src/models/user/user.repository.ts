@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma, User } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
-import { createUserInput } from "./dto/inputs/create";
+import { createUserDto } from "./dto/create-user.dto";
 import { pickSelect } from "src/utils/pick-select";
-import { updateUserInput } from "./dto/inputs/update";
+import { updateUserDto } from "./dto/update-user-dto";
 
 @Injectable()
 export class UserRepository {
@@ -23,7 +23,7 @@ export class UserRepository {
   }
 
   async create(
-    user: createUserInput,
+    user: createUserDto,
     keys: (keyof Prisma.UserSelect)[] = ["id", "name"]
   ){
     const response = await this.prisma.user.create({
@@ -55,7 +55,7 @@ export class UserRepository {
 
   async update(
     id: string,
-    data: updateUserInput,
+    data: updateUserDto,
     keys: (keyof Prisma.UserSelect)[] = ["id", "name", "image", "email"]
   ){
     const response = await this.prisma.user.update({

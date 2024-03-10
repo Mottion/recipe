@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { createUserInput } from './dto/inputs/create';
+import { createUserDto } from './dto/create-user.dto';
 import { Public } from 'src/providers/auth/public.decorator';
-import { updateUserInput } from './dto/inputs/update';
+import { updateUserDto } from './dto/update-user-dto';
 
 const multerInterceptor = {
   storage: diskStorage({
@@ -32,7 +32,7 @@ export class UserController {
 
   @Public()
   @Post("/create")
-  async create(@Body() body: createUserInput){
+  async create(@Body() body: createUserDto){
     return await this.userService.create(body);
   }
 
@@ -41,8 +41,8 @@ export class UserController {
     return await this.userService.deleteById(params.id, req);
   }
 
-  @Delete("/:id")
-  async update(@Req() req: Request, @Body() body: updateUserInput, @Param() params: {id: string}){
+  @Patch("/:id")
+  async update(@Req() req: Request, @Body() body: updateUserDto, @Param() params: {id: string}){
     return await this.userService.update(params.id, body, req);
   }
 
