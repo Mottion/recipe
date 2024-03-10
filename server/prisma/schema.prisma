@@ -25,6 +25,7 @@ model User {
   id               String         @id @default(uuid())
   name             String
   email            String         @unique
+  image            String?
   password         String
   followers        User[]         @relation(name: "Followers")
   follows          User[]         @relation(name: "Followers")

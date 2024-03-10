@@ -8,3 +8,4 @@
 - usar @nest/swagger
 - user jest para testes unitários
 - estudar o "testing nest" do nestjs
+- aplicar o Joi para verificar entradas

@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './providers/auth/auth.module';
-import { RecipeModule } from './models/recipe/recipe.module';
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { RecipeModule } from './models/recipe/recipe.module';
     }),
     UserModule,
     AuthModule,
-    RecipeModule,
   ],
   controllers: [],
   providers: [],

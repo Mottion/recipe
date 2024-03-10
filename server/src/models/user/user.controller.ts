@@ -1,7 +1,9 @@
-import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { createUserInput } from './dto/inputs/create';
+import { Public } from 'src/providers/auth/public.decorator';
 
 const multerInterceptor = {
   storage: diskStorage({
@@ -26,8 +28,10 @@ export class UserController {
     return await this.userService.checkFileType(file);
   }
 
-  @Get("route")
-  async route(){
-    return "route";
+  @Public()
+  @Post("/create")
+  async create(@Body() body: createUserInput){
+    return await this.userService.create(body);
   }
+
 }
