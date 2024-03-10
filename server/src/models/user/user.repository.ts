@@ -3,6 +3,7 @@ import { Prisma, User } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
 import { createUserInput } from "./dto/inputs/create";
 import { pickSelect } from "src/utils/pick-select";
+import { updateUserInput } from "./dto/inputs/update";
 
 @Injectable()
 export class UserRepository {
@@ -27,6 +28,39 @@ export class UserRepository {
   ){
     const response = await this.prisma.user.create({
       data: user,
+      select: pickSelect(keys) as Prisma.UserSelect
+    });
+    return response;
+  }
+
+  async findById(
+    id: string,
+    keys: (keyof Prisma.UserSelect)[] = ["id"]
+  ){
+    const response = await this.prisma.user.findFirst({
+      where: {id},
+      select: pickSelect(keys) as Prisma.UserSelect
+    });
+    return response;
+  }
+  
+  async deleteById(
+    id: string,
+  ){
+    const response = await this.prisma.user.delete({
+      where: {id},
+    });
+    return response;
+  }
+
+  async update(
+    id: string,
+    data: updateUserInput,
+    keys: (keyof Prisma.UserSelect)[] = ["id", "name", "image", "email"]
+  ){
+    const response = await this.prisma.user.update({
+      where: {id},
+      data: data,
       select: pickSelect(keys) as Prisma.UserSelect
     });
     return response;

@@ -20,8 +20,8 @@ export class PrismaExceptionFilter implements ExceptionFilter {
 
   catchPrismaError(exception: PrismaClientKnownRequestError){
     switch(exception.code){
-      case "P2002": return `This ${exception.meta.target} is already in use.`;
-      default: return "Internal server error."
+      case "P2002": return `This ${exception.meta.target} is already in use`;
+      default: return "Internal server error"
     }
   }
 }

@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { createUserInput } from './dto/inputs/create';
 import { Public } from 'src/providers/auth/public.decorator';
+import { updateUserInput } from './dto/inputs/update';
 
 const multerInterceptor = {
   storage: diskStorage({
@@ -22,6 +23,7 @@ export class UserController {
     private readonly userService: UserService,
   ){}
 
+  @Public()
   @Post("/uploadImage")
   @UseInterceptors(FileInterceptor("file", multerInterceptor))
   async uploadImage(@UploadedFile() file: Express.Multer.File){
@@ -33,5 +35,16 @@ export class UserController {
   async create(@Body() body: createUserInput){
     return await this.userService.create(body);
   }
+
+  @Delete("/:id")
+  async deleteById(@Req() req: Request, @Param() params: {id: string}){
+    return await this.userService.deleteById(params.id, req);
+  }
+
+  @Delete("/:id")
+  async update(@Req() req: Request, @Body() body: updateUserInput, @Param() params: {id: string}){
+    return await this.userService.update(params.id, body, req);
+  }
+
 
 }
