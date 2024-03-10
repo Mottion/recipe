@@ -3,6 +3,7 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "image" TEXT,
     "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -15,7 +16,7 @@ CREATE TABLE "Recipe" (
     "tagId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "ingredients" TEXT NOT NULL,
+    "ingredients" TEXT[],
     "image" TEXT NOT NULL,
     "rating" DOUBLE PRECISION NOT NULL,
     "methodOfPreparation" TEXT NOT NULL,

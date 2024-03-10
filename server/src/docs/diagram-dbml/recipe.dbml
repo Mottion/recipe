@@ -23,7 +23,7 @@ Table Recipe {
   tagId String [not null]
   name String [not null]
   description String [not null]
-  ingredients String [not null]
+  ingredients String[] [not null]
   image String [not null]
   rating Float [not null]
   methodOfPreparation String [not null]

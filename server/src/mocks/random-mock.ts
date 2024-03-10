@@ -25,7 +25,7 @@ export function fakeRecipe() {
   return {
     name: faker.person.fullName(),
     description: faker.lorem.words(5),
-    ingredients: faker.lorem.words(5),
+    ingredients: faker.lorem.words(5).split(' '),
     image: faker.image.avatar(),
     rating: faker.number.float(),
     methodOfPreparation: faker.lorem.words(5),
@@ -39,7 +39,7 @@ export function fakeRecipeComplete() {
     tagId: faker.string.uuid(),
     name: faker.person.fullName(),
     description: faker.lorem.words(5),
-    ingredients: faker.lorem.words(5),
+    ingredients: faker.lorem.words(5).split(' '),
     image: faker.image.avatar(),
     rating: faker.number.float(),
     methodOfPreparation: faker.lorem.words(5),
