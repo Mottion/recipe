@@ -25,9 +25,9 @@ export class UserService {
   }
 
   async checkAuthorization(id: string, req: Request){
-    const user = await this.userRepository.findById(req["user"].id);
+    const user = await this.userRepository.findById(req["user"].id, ["id"]);
     if(!user){
-      throw new NotFoundException("User not found!");
+      throw new NotFoundException("User not found");
     }
     if(user.id !== id){
       throw new UnauthorizedException();
@@ -58,4 +58,10 @@ export class UserService {
     return response
   }
 
+  async findById(id: string){
+    const response = await this.userRepository.findById(id);
+    if(!response) throw new NotFoundException("User not found");
+    return response;
+  }
+  
 }

@@ -35,7 +35,7 @@ export class UserRepository {
 
   async findById(
     id: string,
-    keys: (keyof Prisma.UserSelect)[] = ["id"]
+    keys: (keyof Prisma.UserSelect)[] = ["id", "email", "image", "name"]
   ){
     const response = await this.prisma.user.findFirst({
       where: {id},
@@ -61,6 +61,18 @@ export class UserRepository {
     const response = await this.prisma.user.update({
       where: {id},
       data: data,
+      select: pickSelect(keys) as Prisma.UserSelect
+    });
+    return response;
+  }
+
+
+  async getById(
+    id: string,
+    keys: (keyof Prisma.UserSelect)[] = ["id", "name", "image", "email"]
+  ){
+    const response = await this.prisma.user.findFirst({
+      where: {id},
       select: pickSelect(keys) as Prisma.UserSelect
     });
     return response;

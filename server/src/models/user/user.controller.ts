@@ -46,5 +46,8 @@ export class UserController {
     return await this.userService.update(params.id, body, req);
   }
 
-
+  @Get("/:id")
+  async findById(@Param() params: {id: string}){
+    return await this.userService.findById(params.id)
+  }
 }
