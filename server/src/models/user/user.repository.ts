@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
 import { createUserInput } from "./dto/inputs/create";
 
@@ -16,8 +16,14 @@ export class UserRepository {
     return response;
   }
 
-  async create(user: createUserInput){
-    const response = await this.prisma.user.create({data: user});
+  async create(
+    user: createUserInput,
+    keys: (keyof Prisma.UserSelect)[] = ["id", "name"]
+  ): Promise<Partial<User>>{
+    const response = await this.prisma.user.create({
+      data: user,
+      select: keys.reduce((obj, key) => ({...obj, [key]: true}), {})
+    });
     return response;
   }
 }
