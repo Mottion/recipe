@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -10,9 +10,9 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Recipe" (
-    "id" SERIAL NOT NULL,
-    "ownerId" INTEGER NOT NULL,
-    "tagId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "ownerId" TEXT NOT NULL,
+    "tagId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "ingredients" TEXT NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE "Recipe" (
 
 -- CreateTable
 CREATE TABLE "Tag" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "image" TEXT NOT NULL,
 
@@ -35,7 +35,7 @@ CREATE TABLE "Tag" (
 
 -- CreateTable
 CREATE TABLE "Notification" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
@@ -45,9 +45,9 @@ CREATE TABLE "Notification" (
 
 -- CreateTable
 CREATE TABLE "Message" (
-    "id" SERIAL NOT NULL,
-    "senderId" INTEGER NOT NULL,
-    "receiverId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "senderId" TEXT NOT NULL,
+    "receiverId" TEXT NOT NULL,
     "text" TEXT NOT NULL,
     "created" INTEGER NOT NULL,
 
@@ -56,21 +56,24 @@ CREATE TABLE "Message" (
 
 -- CreateTable
 CREATE TABLE "_Followers" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "_Favorite" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "_NotificationToUser" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_Followers_AB_unique" ON "_Followers"("A", "B");

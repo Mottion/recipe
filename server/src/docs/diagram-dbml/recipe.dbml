@@ -1,0 +1,81 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  name String [not null]
+  email String [unique, not null]
+  password String [not null]
+  followers User [not null]
+  follows User [not null]
+  recipes Recipe [not null]
+  favorites Recipe [not null]
+  notifications Notification [not null]
+  messagesSent Message [not null]
+  messagesReceived Message [not null]
+}
+
+Table Recipe {
+  id String [pk]
+  ownerId String [not null]
+  tagId String [not null]
+  name String [not null]
+  description String [not null]
+  ingredients String [not null]
+  image String [not null]
+  rating Float [not null]
+  methodOfPreparation String [not null]
+  kcal Int [not null]
+  owner User [not null]
+  favoritesBy User [not null]
+  tag Tag [not null]
+}
+
+Table Tag {
+  id String [pk]
+  name String [not null]
+  image String [not null]
+  recipes Recipe [not null]
+}
+
+Table Notification {
+  id String [pk]
+  image String [not null]
+  name String [not null]
+  description String [not null]
+  forUsers User [not null]
+}
+
+Table Message {
+  id String [pk]
+  senderId String [not null]
+  receiverId String [not null]
+  text String [not null]
+  created Int [not null]
+  receiver User [not null]
+  sender User [not null]
+}
+
+Table Followers {
+  followersId String [ref: > User.id]
+  followsId String [ref: > User.id]
+}
+
+Table Favorite {
+  favoritesId String [ref: > Recipe.id]
+  favoritesbyId String [ref: > User.id]
+}
+
+Table NotificationToUser {
+  notificationsId String [ref: > Notification.id]
+  forusersId String [ref: > User.id]
+}
+
+Ref: Recipe.ownerId > User.id
+
+Ref: Recipe.tagId > Tag.id
+
+Ref: Message.receiverId > User.id
+
+Ref: Message.senderId > User.id

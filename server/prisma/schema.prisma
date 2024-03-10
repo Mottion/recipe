@@ -10,29 +10,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output     = "../src/docs/diagram-dbml"
+  outputName = "recipe.dbml"
+}
+
+generator custom_generator {
+  provider = "prisma-generator-fake-data"
+  output   = "../src/mocks/random-mock.ts"
+}
+
 model User {
-  id               Int            @id @default(autoincrement())
-  name             String         
-  email            String         @unique    
-  password         String         
+  id               String         @id @default(uuid())
+  name             String
+  email            String         @unique
+  password         String
   followers        User[]         @relation(name: "Followers")
   follows          User[]         @relation(name: "Followers")
   recipes          Recipe[]       @relation("RecipeOwner")
   favorites        Recipe[]       @relation("Favorite")
-  notifications    Notification[] 
+  notifications    Notification[]
   messagesSent     Message[]      @relation("Sent")
   messagesReceived Message[]      @relation("Received")
 }
 
 model Recipe {
-  id                  Int    @id @default(autoincrement())
-  ownerId             Int 
-  tagId               Int
-  name                String   
-  description         String 
-  ingredients         String 
-  image               String 
-  rating              Float  
+  id                  String @id @default(uuid())
+  ownerId             String
+  tagId               String
+  name                String
+  description         String
+  ingredients         String
+  image               String
+  rating              Float
   methodOfPreparation String
   kcal                Int
   owner               User   @relation("RecipeOwner", fields: [ownerId], references: [id])
@@ -41,14 +52,14 @@ model Recipe {
 }
 
 model Tag {
-  id      Int      @id @default(autoincrement())
+  id      String   @id @default(uuid())
   name    String
   image   String
   recipes Recipe[]
 }
 
 model Notification {
-  id          Int    @id @default(autoincrement())
+  id          String @id @default(uuid())
   image       String
   name        String
   description String
@@ -56,9 +67,9 @@ model Notification {
 }
 
 model Message {
-  id         Int    @id @default(autoincrement())
-  senderId   Int
-  receiverId Int
+  id         String @id @default(uuid())
+  senderId   String
+  receiverId String
   text       String
   created    Int
   receiver   User   @relation("Received", fields: [receiverId], references: [id])
