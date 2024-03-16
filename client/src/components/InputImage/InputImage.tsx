@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Image, Text, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import * as ImagePicker from 'expo-image-picker';
-import { InputImageProps } from "../../@types/InputImageProps";
+import { InputImageProps } from "../../@types/components/InputImageProps";
 
 const InputImage: React.FC<InputImageProps> = ({image, setImage}) => {
 

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
-import { NotifyContextProps } from "../@types/NotifyContextProps";
-import { ContextProps } from "../@types/ContextProps";
+import { NotifyContextProps } from "../@types/contexts/NotifyContextProps";
+import { ContextProps } from "../@types/contexts/ContextProps";
 
 const NotifyContext = createContext<NotifyContextProps>({} as NotifyContextProps);
 

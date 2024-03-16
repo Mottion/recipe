@@ -5,11 +5,11 @@ import AppStack from "./AppStack";
 import { useAuth } from "../context/AuthContext";
 
 const Routes = () => {
-  const {user} = useAuth();
+  const {token} = useAuth();
 
   return (
     <NavigationContainer >
-      {user ? <AppStack /> : <AuthStack />}
+      {token ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   )
 };

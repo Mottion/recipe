@@ -14,7 +14,7 @@ export class PrismaExceptionFilter implements ExceptionFilter {
       .status(HttpStatus.BAD_REQUEST)
       .json({
         status: HttpStatus.BAD_REQUEST,
-        error: errorMessage
+        message: errorMessage
       });      
   }
 

@@ -1,15 +1,15 @@
 import React, { createContext, useContext } from "react";
-import { ServerContextProps } from "../@types/ServerContextProps";
-import { ContextProps } from "../@types/ContextProps";
+import { ServerContextProps } from "../@types/contexts/ServerContextProps";
+import { ContextProps } from "../@types/contexts/ContextProps";
 import api from "../services/axiosConfig";
 import { useAuth } from "./AuthContext";
 import { useNotify } from "./NotifyContext";
-import { AxiosError } from "axios";
+import { UserProps } from "../@types/dtos/UserProps";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
 export const ServerProvider: React.FC<ContextProps> = ({children}) => {
-  const {user} = useAuth();
+  const {token} = useAuth();
   const {showNotify} = useNotify();
 
   async function uploadImage(file: FormData){
@@ -26,9 +26,20 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     }
   }
 
+  async function userSignup(user: UserProps){
+    try{
+      const request = user;
+      const {data} = await api.post("/user/create", request)
+      return data.access_token
+    }catch(error: any){
+      showNotify(error.response.data.message, "negative")
+    }
+  }
+
   return (
     <ServerContext.Provider value={{
-      uploadImage
+      uploadImage,
+      userSignup
     }}>
       {children}
     </ServerContext.Provider >

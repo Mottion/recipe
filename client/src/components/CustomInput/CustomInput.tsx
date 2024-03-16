@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, TextInput, View } from "react-native";
-import { CustomInputProps } from "../../@types/CustomInputProps";
+import { CustomInputProps } from "../../@types/components/CustomInputProps";
 import { styles } from "./styles";
 
 const CustomInput: React.FC<CustomInputProps> = ({

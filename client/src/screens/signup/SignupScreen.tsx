@@ -11,6 +11,7 @@ import { useNotify } from "../../context/NotifyContext";
 import { useAuth } from "../../context/AuthContext";
 import { useServer } from "../../context/ServerContext";
 import { ImagePickerAsset } from "expo-image-picker";
+import { baseUrl } from "../../services/axiosConfig";
 
 const SignupScreen: React.FC = () => {
   const [name, setName] = useState<string>("Adrian");
@@ -23,13 +24,26 @@ const SignupScreen: React.FC = () => {
   const server = useServer();
 
   function handleGoogleSignup(){
-    
+
   }
 
   async function handleSignup(){
     if(!name || !email || !password){
       showNotify("some fields are empty!", "negative")
       return;
+    }
+
+    let imagePath: string | null = null;
+    if(image){
+      imagePath = await uploadImage();
+    }
+    const response = await server.userSignup({
+      name, email, password,
+      image: imagePath ? `${baseUrl}/${imagePath}` : null
+    });
+
+    if(response){
+      login(response);
     }
 
   }
