@@ -26,6 +26,16 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     }
   }
 
+  async function userLogin(user: Omit<UserProps, "image" | "name">){
+    try{
+      const request = user;
+      const {data} = await api.post("/auth/login", request)
+      return data.access_token
+    }catch(error: any){
+      showNotify(error.response.data.message, "negative")
+    }
+  }
+
   async function userSignup(user: UserProps){
     try{
       const request = user;
@@ -39,7 +49,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
   return (
     <ServerContext.Provider value={{
       uploadImage,
-      userSignup
+      userSignup,
+      userLogin
     }}>
       {children}
     </ServerContext.Provider >

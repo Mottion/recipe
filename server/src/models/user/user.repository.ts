@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Prisma, User } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
 import { createUserDto } from "./dto/create-user.dto";
 import { pickSelect } from "src/utils/pick-select";
@@ -13,7 +13,7 @@ export class UserRepository {
 
   async findByEmail(
     email: string,
-    keys: (keyof Prisma.UserSelect)[] = ["id", "password"]
+    keys: (keyof Prisma.UserSelect)[] = ["id", "password", "name"]
   ){
     const response = await this.prisma.user.findUnique({
       where: {email}, 

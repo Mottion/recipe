@@ -7,17 +7,26 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from "../../globalStyle/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { useNotify } from "../../context/NotifyContext";
+import { useServer } from "../../context/ServerContext";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState<string>("adrianelizandro78@gmail.com");
   const [password, setPassword] = useState<string>("Senha123");
   const navigation = useNavigation();
   const {showNotify} = useNotify();
+  const server = useServer();
+  const {login} = useAuth();
 
-  function handleLogin(){
+  async function handleLogin(){
     if(!email || !password){
       showNotify("some fields are empty!", "negative")
       return;
+    }
+
+    const response = await server.userLogin({email, password})
+    if(response){
+      login(response);
     }
   }
 
