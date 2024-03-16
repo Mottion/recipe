@@ -23,7 +23,7 @@ const SignupScreen: React.FC = () => {
   const server = useServer();
 
   function handleGoogleSignup(){
-
+    
   }
 
   async function handleSignup(){
