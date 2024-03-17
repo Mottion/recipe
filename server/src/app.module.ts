@@ -5,6 +5,7 @@ import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './providers/auth/auth.module';
 import { TagModule } from './models/tag/tag.module';
+import { JoiPipeModule } from 'nestjs-joi';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TagModule } from './models/tag/tag.module';
     UserModule,
     AuthModule,
     TagModule,
+    JoiPipeModule,
   ],
   controllers: [],
   providers: [],

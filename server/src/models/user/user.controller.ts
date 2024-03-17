@@ -5,6 +5,7 @@ import { diskStorage } from 'multer';
 import { createUserDto } from './dto/create-user.dto';
 import { Public } from '../../providers/auth/public.decorator';
 import { updateUserDto } from './dto/update-user-dto';
+import { pathId } from 'src/utils/dtos/path-id';
 
 const multerInterceptor = {
   storage: diskStorage({
@@ -37,17 +38,17 @@ export class UserController {
   }
 
   @Delete("/:id")
-  async deleteById(@Req() req: Request, @Param() params: {id: string}){
+  async deleteById(@Req() req: Request, @Param() params: pathId){
     return await this.userService.deleteById(params.id, req);
   }
 
   @Patch("/:id")
-  async update(@Req() req: Request, @Body() body: updateUserDto, @Param() params: {id: string}){
+  async update(@Req() req: Request, @Body() body: updateUserDto, @Param() params: pathId){
     return await this.userService.update(params.id, body, req);
   }
 
   @Get("/:id")
-  async findById(@Param() params: {id: string}){
+  async findById(@Param() params: pathId){
     return await this.userService.findById(params.id)
   }
 
