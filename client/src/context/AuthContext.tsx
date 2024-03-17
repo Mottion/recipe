@@ -17,7 +17,8 @@ export const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   async function loadFromStorage() {
     const storageData = await AsyncStorage.getItem("token");
     if (storageData) {
-      setToken(JSON.parse(storageData) as string);
+      const parsed = JSON.parse(JSON.stringify(storageData));
+      setToken(parsed);
     }
   }
 

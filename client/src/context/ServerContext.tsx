@@ -39,7 +39,7 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
   async function userSignup(user: UserProps){
     try{
       const request = user;
-      const {data} = await api.post("/user/create", request)
+      const {data} = await api.post("/user", request)
       return data.access_token
     }catch(error: any){
       showNotify(error.response.data.message, "negative")
