@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { createUserDto } from './dto/create-user.dto';
-import { Public } from 'src/providers/auth/public.decorator';
+import { Public } from '../../providers/auth/public.decorator';
 import { updateUserDto } from './dto/update-user-dto';
 
 const multerInterceptor = {
@@ -49,5 +49,11 @@ export class UserController {
   @Get("/:id")
   async findById(@Param() params: {id: string}){
     return await this.userService.findById(params.id)
+  }
+
+
+  @Get("/")
+  async find(){
+    return "chamado"
   }
 }

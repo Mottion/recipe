@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, UnauthorizedException, UnsupportedMediaT
 import { UserRepository } from './user.repository';
 import { createUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
-import { AccessTokenDto } from 'src/providers/auth/dto/access-token.dto';
+import { AccessTokenDto } from '../../providers/auth/dto/access-token.dto';
 import { updateUserDto } from './dto/update-user-dto';
 const fs = require('fs');
 
@@ -25,11 +25,11 @@ export class UserService {
   }
 
   async checkAuthorization(id: string, req: Request){
-    const user = await this.userRepository.findById(req["user"].id, ["id"]);
+    const user = await this.userRepository.findById(id, ["id"]);
     if(!user){
       throw new NotFoundException("User not found");
     }
-    if(user.id !== id){
+    if(user.id !== req["user"].id){
       throw new UnauthorizedException();
     }
   }
