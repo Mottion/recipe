@@ -31,7 +31,7 @@ describe('User:', () => {
     await app.close();
   });
 
-  describe('POST /user/create', () => {
+  describe('POST /user', () => {
     beforeEach(async () => {
       await cleanDB(prisma)      
     })
@@ -39,7 +39,7 @@ describe('User:', () => {
     test("Should return 201 and create a user in the database without image", async () => {
       const user = fakeUser()
       const response = await request(app.getHttpServer())
-      .post("/user/create")
+      .post("/user")
       .send(user)
       .expect(HttpStatus.CREATED);
       expect(response.body.access_token).not.toBeNull();
@@ -48,7 +48,7 @@ describe('User:', () => {
       const user = fakeUser()
       user.image = "https://example.com"
       const response = await request(app.getHttpServer())
-      .post("/user/create")
+      .post("/user")
       .send(user)
       .expect(HttpStatus.CREATED);
       expect(response.body.access_token).not.toBeNull();
@@ -57,7 +57,7 @@ describe('User:', () => {
       const user = fakeUser()
       delete user.name;
       const response = await request(app.getHttpServer())
-      .post("/user/create")
+      .post("/user")
       .send(user)
       .expect(HttpStatus.INTERNAL_SERVER_ERROR);
     })
@@ -66,7 +66,7 @@ describe('User:', () => {
       await prisma.user.create({data: user})
 
       const response = await request(app.getHttpServer())
-      .post("/user/create")
+      .post("/user")
       .send(user)
       .expect(HttpStatus.INTERNAL_SERVER_ERROR);
     })

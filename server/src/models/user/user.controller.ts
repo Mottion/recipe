@@ -32,7 +32,7 @@ export class UserController {
   }
 
   @Public()
-  @Post("/create")
+  @Post("/")
   async create(@Body() body: createUserDto){
     return await this.userService.create(body);
   }
