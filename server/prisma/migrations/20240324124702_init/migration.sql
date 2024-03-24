@@ -77,6 +77,27 @@ CREATE TABLE "_NotificationToUser" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE INDEX "IDX_USER_ID" ON "User" USING HASH ("id");
+
+-- CreateIndex
+CREATE INDEX "IDX_USER_EMAIL" ON "User" USING HASH ("email");
+
+-- CreateIndex
+CREATE INDEX "IDX_RECIPE_ID" ON "Recipe" USING HASH ("id");
+
+-- CreateIndex
+CREATE INDEX "IDX_RECIPE_NAME" ON "Recipe" USING SPGIST ("name");
+
+-- CreateIndex
+CREATE INDEX "IDX_TAG_ID" ON "Tag" USING HASH ("id");
+
+-- CreateIndex
+CREATE INDEX "IDX_NOTIFICATION_ID" ON "Notification" USING HASH ("id");
+
+-- CreateIndex
+CREATE INDEX "IDX_TALK_ID" ON "Message"("senderId", "receiverId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_Followers_AB_unique" ON "_Followers"("A", "B");
 
 -- CreateIndex
