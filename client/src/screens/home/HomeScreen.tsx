@@ -3,20 +3,23 @@ import { Image, ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, 
 import { styles } from "./styles";
 import { Feather } from '@expo/vector-icons';
 import { TagProps } from "../../@types/dtos/TagProps";
+import { useServer } from "../../context/ServerContext";
+import { useAuth } from "../../context/AuthContext";
 
 const HomeScreen: React.FC = () => {
   const [search, setSearch] = useState("");
   const [tags, setTags] = useState<TagProps[]>([]);
+  const server = useServer()
   
   useEffect(() => {
-    const mock = {name: "bolos", image: "https://receitanatureba.com/wp-content/uploads/2023/03/bolo-de-chocolate-integral.jpg"}
-    const mockArray = [];
-    for(let i = 0; i < 10; i++){
-      mockArray.push(mock)
-    }
-    setTags(mockArray)
+    getTags()
   }, [])
+  
 
+  const getTags = async () => {
+    const response = await server.getTags();
+    setTags(response)
+  }
 
   return (
     <View style={styles.container} >
@@ -41,7 +44,7 @@ const HomeScreen: React.FC = () => {
       </TouchableOpacity>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tags}>
         {tags.map((tag) => (
-          <TouchableOpacity style={styles.tagWrapper}>
+          <TouchableOpacity key={tag.id} style={styles.tagWrapper}>
             <ImageBackground style={styles.tagBg} source={{uri: tag.image}}>
               <Text style={styles.tagTitle}>{tag.name}</Text>
             </ImageBackground>

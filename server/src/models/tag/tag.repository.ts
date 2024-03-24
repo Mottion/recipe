@@ -12,4 +12,9 @@ export class TagRepository {
     const response = await this.prisma.tag.create({data: createTagDto});
     return response
   }
+
+  async getTags(){
+    const response = await this.prisma.tag.findMany();
+    return response
+  }
 }

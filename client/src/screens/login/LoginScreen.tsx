@@ -11,8 +11,8 @@ import { useServer } from "../../context/ServerContext";
 import { useAuth } from "../../context/AuthContext";
 
 const LoginScreen: React.FC = () => {
-  const [email, setEmail] = useState<string>("adrianelizandro78@gmail.com");
-  const [password, setPassword] = useState<string>("Senha123");
+  const [email, setEmail] = useState<string>("usuario1@gmail.com");
+  const [password, setPassword] = useState<string>("senha123");
   const navigation = useNavigation();
   const {showNotify} = useNotify();
   const server = useServer();

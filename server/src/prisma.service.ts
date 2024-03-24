@@ -5,6 +5,11 @@ function extendPrismaClient() {
   const logger = new Logger('Prisma');
   const prisma = new PrismaClient();
   return prisma.$extends({
+    client: {
+      async onModuleInit() {
+        await this.$connect();
+      }
+    },
     query: {
       $allModels: {
         async $allOperations({ operation, model, args, query }) {

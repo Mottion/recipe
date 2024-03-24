@@ -32,7 +32,7 @@ export class UserController {
   }
 
   @Public()
-  @Post("/")
+  @Post()
   async create(@Body() body: createUserDto){
     return await this.userService.create(body);
   }
@@ -50,11 +50,5 @@ export class UserController {
   @Get("/:id")
   async findById(@Param() params: pathId){
     return await this.userService.findById(params.id)
-  }
-
-
-  @Get("/")
-  async find(){
-    return "chamado"
   }
 }

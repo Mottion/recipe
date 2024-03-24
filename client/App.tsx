@@ -23,12 +23,12 @@ export default function App() {
 
   return (
     <NotifyProvider>
-      <ServerProvider>
-        <AuthProvider>
-          <Routes/>
-          <Notify />
-        </AuthProvider>
-      </ServerProvider>
+      <AuthProvider>
+        <ServerProvider>
+            <Routes/>
+            <Notify />
+        </ServerProvider>
+      </AuthProvider>
     </NotifyProvider>
   );
 }

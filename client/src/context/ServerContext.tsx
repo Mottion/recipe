@@ -46,11 +46,25 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     }
   }
 
+  async function getTags(){
+    try{
+      const {data} = await api.get("/tag", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return data
+    }catch(error: any){
+      showNotify(error.response.data.message, "negative")
+    }
+  }
+
   return (
     <ServerContext.Provider value={{
       uploadImage,
       userSignup,
-      userLogin
+      userLogin,
+      getTags
     }}>
       {children}
     </ServerContext.Provider >

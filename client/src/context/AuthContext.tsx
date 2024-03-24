@@ -9,7 +9,7 @@ const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 export const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
-
+  
   useEffect(() => {
     loadFromStorage();
   }, [])
@@ -22,8 +22,7 @@ export const AuthProvider: React.FC<ContextProps> = ({ children }) => {
     }
   }
 
-  function checkAuthentication(){
-    console.log("logado")
+  async function checkAuthentication(){
   }
 
   async function login(auth: string){
