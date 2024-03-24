@@ -5,10 +5,7 @@
 -  Para criar um resorce que é o module, o controler, o service, uma pasta de dto e a entidade {{ nest g resource }}
 
 # Todo list:
-- usar @nest/swagger
-- user jest para testes unitários
-- estudar o "testing nest" do nestjs
-- aplicar o Joi para verificar entradas
+- definir um middleware de logger das querys
 
 # Padrões de código definidos:
   - o arquivo usa o padrão dash-case.
