@@ -25,7 +25,7 @@ Table Recipe {
   description String [not null]
   ingredients String[] [not null]
   image String [not null]
-  rating Float [not null]
+  rating Int[] [not null]
   methodOfPreparation String [not null]
   kcal Int [not null]
   owner User [not null]

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { TagService } from './tag.service';
 
 @Controller('tag')

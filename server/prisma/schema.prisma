@@ -47,7 +47,7 @@ model Recipe {
   description         String
   ingredients         String[]
   image               String
-  rating              Float
+  rating              Int[]
   methodOfPreparation String
   kcal                Int
   owner               User   @relation("RecipeOwner", fields: [ownerId], references: [id])

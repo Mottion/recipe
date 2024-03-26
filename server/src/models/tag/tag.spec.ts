@@ -1,6 +1,6 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { HttpStatus, INestApplication } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import { AuthModule } from '../../providers/auth/auth.module';
 import { PrismaService } from '../../prisma.service';
 import { cleanDB } from '../../../test/clean-db';

@@ -20,6 +20,18 @@ function extendPrismaClient() {
           logger.verbose(`${model}.${operation} took ${Math.floor(time)}ms`);
           return result;
         }
+      },
+    },
+    result: {
+      recipe: {
+        rating: {
+          needs: {rating: true},
+          compute(recipe) {
+            if(recipe.rating.length == 0) return 0;
+            const sum = recipe.rating.reduce((value, nextValue) => {return value += nextValue});
+            return sum / recipe.rating.length
+          },
+        }
       }
     }
   });

@@ -27,7 +27,7 @@ export function fakeRecipe() {
     description: faker.lorem.words(5),
     ingredients: faker.lorem.words(5).split(' '),
     image: faker.image.avatar(),
-    rating: faker.number.float(),
+    rating: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
     methodOfPreparation: faker.lorem.words(5),
     kcal: faker.number.int(),
   };
@@ -41,7 +41,7 @@ export function fakeRecipeComplete() {
     description: faker.lorem.words(5),
     ingredients: faker.lorem.words(5).split(' '),
     image: faker.image.avatar(),
-    rating: faker.number.float(),
+    rating: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
     methodOfPreparation: faker.lorem.words(5),
     kcal: faker.number.int(),
   };
