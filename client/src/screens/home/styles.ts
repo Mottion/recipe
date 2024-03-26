@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
   tagWrapper: {
     borderRadius: 5,
     overflow: "hidden",
-    marginHorizontal: 5
+    marginHorizontal: 5,
   },
   tagBg: {
   },

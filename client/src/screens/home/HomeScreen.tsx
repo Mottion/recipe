@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Image, ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { Feather } from '@expo/vector-icons';
 import { TagProps } from "../../@types/dtos/TagProps";
 import { useServer } from "../../context/ServerContext";
-import { useAuth } from "../../context/AuthContext";
 
 const HomeScreen: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -14,7 +13,6 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     getTags()
   }, [])
-  
 
   const getTags = async () => {
     const response = await server.getTags();
