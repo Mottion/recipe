@@ -18,11 +18,20 @@ CREATE TABLE "Recipe" (
     "description" TEXT NOT NULL,
     "ingredients" TEXT[],
     "image" TEXT NOT NULL,
-    "rating" DOUBLE PRECISION NOT NULL,
     "methodOfPreparation" TEXT NOT NULL,
     "kcal" INTEGER NOT NULL,
 
     CONSTRAINT "Recipe_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Rating" (
+    "id" TEXT NOT NULL,
+    "stars" INTEGER NOT NULL,
+    "ratedById" TEXT NOT NULL,
+    "recipeId" TEXT NOT NULL,
+
+    CONSTRAINT "Rating_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -89,6 +98,12 @@ CREATE INDEX "IDX_RECIPE_ID" ON "Recipe" USING HASH ("id");
 CREATE INDEX "IDX_RECIPE_NAME" ON "Recipe" USING SPGIST ("name");
 
 -- CreateIndex
+CREATE INDEX "IDX_RATING_RECIPE" ON "Rating" USING HASH ("ratedById");
+
+-- CreateIndex
+CREATE INDEX "IDX_RATING_USER" ON "Rating" USING HASH ("recipeId");
+
+-- CreateIndex
 CREATE INDEX "IDX_TAG_ID" ON "Tag" USING HASH ("id");
 
 -- CreateIndex
@@ -120,6 +135,12 @@ ALTER TABLE "Recipe" ADD CONSTRAINT "Recipe_ownerId_fkey" FOREIGN KEY ("ownerId"
 
 -- AddForeignKey
 ALTER TABLE "Recipe" ADD CONSTRAINT "Recipe_tagId_fkey" FOREIGN KEY ("tagId") REFERENCES "Tag"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Rating" ADD CONSTRAINT "Rating_ratedById_fkey" FOREIGN KEY ("ratedById") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Rating" ADD CONSTRAINT "Rating_recipeId_fkey" FOREIGN KEY ("recipeId") REFERENCES "Recipe"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Message" ADD CONSTRAINT "Message_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

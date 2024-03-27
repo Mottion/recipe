@@ -15,6 +15,7 @@ Table User {
   notifications Notification [not null]
   messagesSent Message [not null]
   messagesReceived Message [not null]
+  ratings Rating [not null]
 }
 
 Table Recipe {
@@ -25,12 +26,21 @@ Table Recipe {
   description String [not null]
   ingredients String[] [not null]
   image String [not null]
-  rating Int[] [not null]
   methodOfPreparation String [not null]
   kcal Int [not null]
   owner User [not null]
   favoritesBy User [not null]
   tag Tag [not null]
+  ratings Rating [not null]
+}
+
+Table Rating {
+  id String [pk]
+  stars Int [not null]
+  ratedById String [not null]
+  recipeId String [not null]
+  ratedBy User [not null]
+  recipe Recipe [not null]
 }
 
 Table Tag {
@@ -76,6 +86,10 @@ Table NotificationToUser {
 Ref: Recipe.ownerId > User.id
 
 Ref: Recipe.tagId > Tag.id
+
+Ref: Rating.ratedById > User.id
+
+Ref: Rating.recipeId > Recipe.id
 
 Ref: Message.receiverId > User.id
 

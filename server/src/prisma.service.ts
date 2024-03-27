@@ -24,14 +24,7 @@ function extendPrismaClient() {
     },
     result: {
       recipe: {
-        rating: {
-          needs: {rating: true},
-          compute(recipe) {
-            if(recipe.rating.length == 0) return 0;
-            const sum = recipe.rating.reduce((value, nextValue) => {return value += nextValue});
-            return sum / recipe.rating.length
-          },
-        }
+        
       }
     }
   });
@@ -45,10 +38,3 @@ const ExtendedPrismaClient = class {
 
 @Injectable()
 export class PrismaService extends ExtendedPrismaClient {}
-
-// @Global()
-// @Module({
-//   exports: [PrismaService],
-//   providers: [PrismaService]
-// })
-// export class PrismaModule {}

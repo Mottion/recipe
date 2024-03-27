@@ -14,4 +14,16 @@ export class RecipeRepository {
     const response = await this.prisma.recipe.create({data});
     return response;
   }
+
+  async getRecipes(page: number | undefined){
+    const take = 20;
+    const response = await this.prisma.recipe.findMany({
+      skip: page * take,
+      take,
+      include: {
+        ratings: true
+      }
+    });
+    return response;
+  }
 }

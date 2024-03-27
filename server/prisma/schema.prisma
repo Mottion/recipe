@@ -11,7 +11,7 @@ datasource db {
 }
 
 generator dbml {
-  provider = "prisma-dbml-generator"
+  provider   = "prisma-dbml-generator"
   output     = "../src/docs/diagram-dbml"
   outputName = "recipe.dbml"
 }
@@ -22,7 +22,7 @@ generator custom_generator {
 }
 
 model User {
-  id               String         @id @default(uuid()) 
+  id               String         @id @default(uuid())
   name             String
   email            String         @unique
   image            String?
@@ -34,29 +34,41 @@ model User {
   notifications    Notification[]
   messagesSent     Message[]      @relation("Sent")
   messagesReceived Message[]      @relation("Received")
+  ratings          Rating[]
 
   @@index([id], name: "IDX_USER_ID", type: Hash)
   @@index([email], name: "IDX_USER_EMAIL", type: Hash)
 }
 
 model Recipe {
-  id                  String @id @default(uuid())
+  id                  String   @id @default(uuid())
   ownerId             String
   tagId               String
   name                String
   description         String
   ingredients         String[]
   image               String
-  rating              Int[]
   methodOfPreparation String
   kcal                Int
-  owner               User   @relation("RecipeOwner", fields: [ownerId], references: [id])
-  favoritesBy         User[] @relation("Favorite")
-  tag                 Tag    @relation(fields: [tagId], references: [id])
+  owner               User     @relation("RecipeOwner", fields: [ownerId], references: [id])
+  favoritesBy         User[]   @relation("Favorite")
+  tag                 Tag      @relation(fields: [tagId], references: [id])
+  ratings             Rating[]
 
   @@index([id], name: "IDX_RECIPE_ID", type: Hash)
   @@index([name], name: "IDX_RECIPE_NAME", type: SpGist)
+}
 
+model Rating {
+  id        String @id @default(uuid())
+  stars     Int
+  ratedById String
+  recipeId  String
+  ratedBy   User   @relation(fields: [ratedById], references: [id])
+  recipe    Recipe @relation(fields: [recipeId], references: [id])
+
+  @@index([ratedById], name: "IDX_RATING_RECIPE", type: Hash)
+  @@index([recipeId], name: "IDX_RATING_USER", type: Hash)
 }
 
 model Tag {
@@ -86,6 +98,6 @@ model Message {
   created    Int
   receiver   User   @relation("Received", fields: [receiverId], references: [id])
   sender     User   @relation("Sent", fields: [senderId], references: [id])
-  
+
   @@index([senderId, receiverId], name: "IDX_TALK_ID") // default type: B-Tree
 }

@@ -27,7 +27,6 @@ export function fakeRecipe() {
     description: faker.lorem.words(5),
     ingredients: faker.lorem.words(5).split(' '),
     image: faker.image.avatar(),
-    rating: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
     methodOfPreparation: faker.lorem.words(5),
     kcal: faker.number.int(),
   };
@@ -41,9 +40,21 @@ export function fakeRecipeComplete() {
     description: faker.lorem.words(5),
     ingredients: faker.lorem.words(5).split(' '),
     image: faker.image.avatar(),
-    rating: [faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int(),faker.number.int()],
     methodOfPreparation: faker.lorem.words(5),
     kcal: faker.number.int(),
+  };
+}
+export function fakeRating() {
+  return {
+    stars: faker.number.int(),
+  };
+}
+export function fakeRatingComplete() {
+  return {
+    id: faker.string.uuid(),
+    stars: faker.number.int(),
+    ratedById: faker.string.uuid(),
+    recipeId: faker.string.uuid(),
   };
 }
 export function fakeTag() {
