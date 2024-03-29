@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { Feather } from '@expo/vector-icons';
 import { TagProps } from "../../@types/dtos/TagProps";
 import { useServer } from "../../context/ServerContext";
+import TagComponent from "../../components/TagComponent";
+import { RecipeProps } from "../../@types/dtos/RecipeProps";
+import { RecipeComponent } from "../../components/RecipeComponent";
 
 const HomeScreen: React.FC = () => {
   const [search, setSearch] = useState("");
   const [tags, setTags] = useState<TagProps[]>([]);
+  const [recipes, setRecipes] = useState<RecipeProps[]>([]);
   const server = useServer()
   
   useEffect(() => {
-    getTags()
+    getTags();
+    getRecipes();
   }, [])
 
   const getTags = async () => {
@@ -19,8 +24,16 @@ const HomeScreen: React.FC = () => {
     setTags(response)
   }
 
+  const getRecipes = async () => {
+    const response = await server.getRecipes();
+    for(let i = 0; i< 10; i++){
+      response.push({...response[1], id: i.toString()});
+    }
+    setRecipes(response)
+  }
+
   return (
-    <View style={styles.container} >
+    <ScrollView style={styles.container} >
       <View style={styles.header}>
         <Text style={styles.title}>
           Home
@@ -41,15 +54,15 @@ const HomeScreen: React.FC = () => {
         <Image style={styles.ads} source={require("../../../assets/ads.png")} />
       </TouchableOpacity>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tags}>
-        {tags.map((tag) => (
-          <TouchableOpacity key={tag.id} style={styles.tagWrapper}>
-            <ImageBackground style={styles.tagBg} source={{uri: tag.image}}>
-              <Text style={styles.tagTitle}>{tag.name}</Text>
-            </ImageBackground>
-          </TouchableOpacity>
-        ))}
+        {tags.map((tag) => <TagComponent key={tag.id} tag={tag} />)}
       </ScrollView>
-    </View>
+      <FlatList 
+        showsHorizontalScrollIndicator={false}
+        data={recipes}
+        renderItem={({item}) => <RecipeComponent recipe={item} />}
+        keyExtractor={item => item.id}
+      />
+    </ScrollView>
   );
 }
 

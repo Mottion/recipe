@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     paddingVertical: 50,
     paddingHorizontal: 25,
+    display: "flex",
   },
   header: {
     display: "flex",
@@ -49,23 +50,5 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
-  },
-  tagWrapper: {
-    borderRadius: 5,
-    overflow: "hidden",
-    marginHorizontal: 5,
-  },
-  tagBg: {
-  },
-  tagTitle: {
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    backgroundColor: "#00000033",
-    alignContent: "center",
-    justifyContent: "center",
-    color: "#FFFFFF",
-    fontSize: 29,
-    fontWeight: "700",
-    textDecorationStyle: "solid"
   },
 })

@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { PrismaService } from "src/prisma.service";
+import { GetRecipeDto } from "./dto/get-recipe.dto";
 
 @Injectable()
 export class RecipeRepository {
@@ -20,9 +21,7 @@ export class RecipeRepository {
     const response = await this.prisma.recipe.findMany({
       skip: page * take,
       take,
-      include: {
-        ratings: true
-      }
+      ...GetRecipeDto.include
     });
     return response;
   }
