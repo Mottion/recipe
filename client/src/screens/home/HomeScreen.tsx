@@ -1,68 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList } from "react-native";
 import { styles } from "./styles";
-import { Feather } from '@expo/vector-icons';
-import { TagProps } from "../../@types/dtos/TagProps";
 import { useServer } from "../../context/ServerContext";
-import TagComponent from "../../components/TagComponent";
 import { RecipeProps } from "../../@types/dtos/RecipeProps";
 import { RecipeComponent } from "../../components/RecipeComponent";
+import HomeHeaderComponent from "../../components/HomeHeaderComponent";
 
 const HomeScreen: React.FC = () => {
-  const [search, setSearch] = useState("");
-  const [tags, setTags] = useState<TagProps[]>([]);
   const [recipes, setRecipes] = useState<RecipeProps[]>([]);
-  const server = useServer()
+  const [loading, setLoading] = useState<boolean>(false);
+  const [lastIndex, setLastIndex] = useState<number>();
+  const server = useServer();
+  const take = 2;
   
   useEffect(() => {
-    getTags();
-    getRecipes();
+    getRecipes(0);
   }, [])
 
-  const getTags = async () => {
-    const response = await server.getTags();
-    setTags(response)
-  }
-
-  const getRecipes = async () => {
-    const response = await server.getRecipes();
-    for(let i = 0; i< 10; i++){
-      response.push({...response[1], id: i.toString()});
-    }
-    setRecipes(response)
+  const getRecipes = async (skip: number) => {
+    if(loading || lastIndex == skip) return;
+    setLoading(true);
+    const response = await server.getRecipes(skip, take);
+    setRecipes([...recipes, ...response]);
+    setLastIndex(recipes.length)
+    setLoading(false)
   }
 
   return (
-    <ScrollView style={styles.container} >
-      <View style={styles.header}>
-        <Text style={styles.title}>
-          Home
-        </Text>
-        <Feather name="bell" size={28} color="black" />
-      </View>
-      <View style={styles.searchWrapper}>
-        <TextInput 
-          style={styles.search} 
-          value={search} 
-          onChangeText={setSearch} 
-          placeholder="Search"
-          placeholderTextColor="#6d6d6d"
-        />
-        <Feather style={styles.filter} name="filter" size={24} />
-      </View>
-      <TouchableOpacity style={styles.adSpace}>
-        <Image style={styles.ads} source={require("../../../assets/ads.png")} />
-      </TouchableOpacity>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tags}>
-        {tags.map((tag) => <TagComponent key={tag.id} tag={tag} />)}
-      </ScrollView>
-      <FlatList 
-        showsHorizontalScrollIndicator={false}
-        data={recipes}
-        renderItem={({item}) => <RecipeComponent recipe={item} />}
-        keyExtractor={item => item.id}
-      />
-    </ScrollView>
+    <FlatList 
+      style={styles.container}
+      showsHorizontalScrollIndicator={false}
+      data={recipes}
+      ListHeaderComponent={(<HomeHeaderComponent />)}
+      renderItem={({item, index}) => {
+        return <RecipeComponent recipe={item} />
+      }}
+      onEndReached={() => getRecipes(recipes.length)}
+      onEndReachedThreshold={0.1}
+      keyExtractor={item => item.id}
+    />
   );
 }
 

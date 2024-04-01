@@ -5,12 +5,22 @@ import api from "../services/axiosConfig";
 import { useAuth } from "./AuthContext";
 import { useNotify } from "./NotifyContext";
 import { UserProps } from "../@types/dtos/UserProps";
+import { RecipeProps } from "../@types/dtos/RecipeProps";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
 export const ServerProvider: React.FC<ContextProps> = ({children}) => {
-  const {token} = useAuth();
+  const {token, logOut} = useAuth();
   const {showNotify} = useNotify();
+
+  // const requestWrapper: <T>() => Promise<T> = (cb: <T>() => Promise<T>) => {
+  //   try{
+  //     return cb();
+  //   }catch(error: any){
+  //     if(error.response.data.statusCode == 401){logOut()}
+  //     showNotify(error.response.data.message, "negative")
+  //   }
+  // }
 
   async function uploadImage(file: FormData){
     try{
@@ -59,18 +69,20 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     }
   }
 
+  // const getRecipes = requestWrapper(async (skip: number, take: number) => {
+  //   const {data} = await api.get("/recipe", {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //     params: { skip, take }
+  //   })
+  //   return data as RecipeProps[]
+  // })
 
-  async function getRecipes(){
-    try{
-      const {data} = await api.get("/recipe", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      return data
-    }catch(error: any){
-      showNotify(error.response.data.message, "negative")
-    }
+  async function getRecipes(skip: number, take: number){
+    const {data} = await api.get("/recipe", {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { skip, take }
+    })
+    return data as RecipeProps[]
   }
 
   return (

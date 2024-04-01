@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import { RecipeService } from './recipe.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 
@@ -12,7 +12,7 @@ export class RecipeController {
   }
 
   @Get()
-  async getRecipes(@Param() params: {page: number | undefined}){
-    return await this.recipeService.getRecipes(params.page ?? 0);
+  async getRecipes(@Query() query: {skip: number, take: number}){
+    return await this.recipeService.getRecipes(+query.skip, +query.take);
   }
 }

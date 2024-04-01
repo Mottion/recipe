@@ -16,10 +16,9 @@ export class RecipeRepository {
     return response;
   }
 
-  async getRecipes(page: number | undefined){
-    const take = 20;
+  async getRecipes(skip: number, take: number){
     const response = await this.prisma.recipe.findMany({
-      skip: page * take,
+      skip,
       take,
       ...GetRecipeDto.include
     });

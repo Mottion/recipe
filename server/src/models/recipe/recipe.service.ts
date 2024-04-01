@@ -14,8 +14,8 @@ export class RecipeService {
     return response;
   }
 
-  async getRecipes(page: number | undefined){
-    const recipes = await this.recipeRepository.getRecipes(page);
+  async getRecipes(skip: number, take: number){
+    const recipes = await this.recipeRepository.getRecipes(skip, take);
     const response = recipes.map((recipe) => new GetRecipeDto(recipe));
     return response 
   }
