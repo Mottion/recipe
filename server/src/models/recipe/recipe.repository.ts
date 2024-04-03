@@ -16,12 +16,15 @@ export class RecipeRepository {
     return response;
   }
 
-  async getRecipes(skip: number, take: number){
+  async getRecipes(skip: number, take: number, userId?: string){
     const response = await this.prisma.recipe.findMany({
+      where: {owner: {id: userId}},
       skip,
       take,
       ...GetRecipeDto.include
     });
     return response;
   }
+
+  
 }

@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   line: {
     borderBottomColor: theme.white,
     borderBottomWidth: 2,
-    marginTop: 20,
+    marginVertical: 20,
     width: "100%"
   },
 })

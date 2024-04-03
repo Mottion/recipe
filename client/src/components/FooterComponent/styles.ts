@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import { theme } from "../../globalStyle/globalStyle";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: theme.white,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",

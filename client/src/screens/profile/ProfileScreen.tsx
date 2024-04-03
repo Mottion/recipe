@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import PageHeader from "../../components/PageHeader";
@@ -10,14 +10,21 @@ import { LinearGradient } from "expo-linear-gradient";
 import { theme } from "../../globalStyle/globalStyle";
 import { useServer } from "../../context/ServerContext";
 import { UserProps } from "../../@types/dtos/UserProps";
+import { RecipeProps } from "../../@types/dtos/RecipeProps";
+import { RecipeComponent } from "../../components/RecipeComponent";
 
 const ProfileScreen: React.FC = () => {
   const {navigate} = useNavigation();
   const server = useServer();
   const [user, setUser] = useState<UserProps>();
+  const [recipes, setRecipes] = useState<RecipeProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [lastIndex, setLastIndex] = useState<number>();
+  const take = 2;
 
   useEffect(() => {
-    getMyUser()
+    getMyUser();
+    getRecipes(0);
   }, [])
 
   async function getMyUser(){
@@ -25,8 +32,17 @@ const ProfileScreen: React.FC = () => {
     setUser(response);
   }
 
+  const getRecipes = async (skip: number) => {
+    if(loading || lastIndex == skip) return;
+    setLoading(true);
+    const response = await server.getMyRecipes(skip, take);
+    setRecipes([...recipes, ...response]);
+    setLastIndex(recipes.length)
+    setLoading(false)
+  }
+
   const icons: PageHeaderProps["icons"] = [
-    (size, color) => <Octicons onPress={() => {navigate("profileConfig")}} name="gear" size={size} color={color} />
+    (size, color, index) => <Octicons key={index} onPress={() => {navigate("profileConfig")}} name="gear" size={size} color={color} />
   ]
 
   if(!user) return
@@ -41,6 +57,18 @@ const ProfileScreen: React.FC = () => {
       <Text style={styles.userName} >{user.name}</Text>
       <CustomButton onPress={() => {}} type="white" text="+ NEW RECIPE" />
       <View style={styles.line} />
+      <FlatList 
+        // style={styles.container}
+        showsHorizontalScrollIndicator={false}
+        data={recipes}
+        renderItem={({item}) => {
+          return <RecipeComponent recipe={item} />
+        }}
+        onEndReached={() => getRecipes(recipes.length)}
+        onEndReachedThreshold={0.1}
+        keyExtractor={item => item.id}
+      />
+
     </LinearGradient>
   );
 }

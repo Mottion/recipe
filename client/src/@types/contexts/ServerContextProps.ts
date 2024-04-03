@@ -8,5 +8,6 @@ export interface ServerContextProps{
   userLogin: (user: Omit<UserProps, "image" | "name">) => Promise<string>,
   getTags: () => Promise<TagProps[]>,
   getRecipes: (skip: number, take: number) => Promise<RecipeProps[]>,
+  getMyRecipes: (skip: number, take: number) => Promise<RecipeProps[]>,
   getMyUser: () => Promise<UserProps>,
 }

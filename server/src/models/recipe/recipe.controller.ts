@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import { RecipeService } from './recipe.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
+import { pathId } from 'src/utils/dtos/path-id';
+import { QueryRecipeDto } from './dto/query-recipe.dto';
 
 @Controller('recipe')
 export class RecipeController {
@@ -12,7 +14,18 @@ export class RecipeController {
   }
 
   @Get()
-  async getRecipes(@Query() query: {skip: number, take: number}){
+  async getRecipes(@Query() query: QueryRecipeDto){
     return await this.recipeService.getRecipes(+query.skip, +query.take);
   }
+
+  @Get("/user/:id")
+  async getUserRecipes(@Param() params: pathId, @Query() query: QueryRecipeDto){
+    return await this.recipeService.getRecipes(+query.skip, +query.take, params.id);
+  }
+
+  @Get("/user")
+  async getMyRecipes(@Req() req: Request, @Query() query: QueryRecipeDto){
+    return await this.recipeService.getRecipes(+query.skip, +query.take, req["user"].id);
+  }
+  
 }

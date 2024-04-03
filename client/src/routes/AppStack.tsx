@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import ProfileScreen from "../screens/profile/ProfileScreen";
 import FooterComponent from "../components/FooterComponent";
+import { theme } from "../globalStyle/globalStyle";
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
@@ -20,7 +21,7 @@ const AppStack = () => {
 
   return (
     <>
-      <Navigator screenOptions={{headerShown: false}}>
+      <Navigator screenOptions={{headerShown: false, contentStyle: {backgroundColor: theme.white}}}>
         <Screen name="home" component={HomeScreen} />
         <Screen name="profile" component={ProfileScreen} />
       </Navigator>

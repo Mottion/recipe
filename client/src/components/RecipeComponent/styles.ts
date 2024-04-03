@@ -3,20 +3,23 @@ import { theme } from "../../globalStyle/globalStyle";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    backgroundColor: theme.white,
+    marginVertical: 5,
     display: "flex",
     flexDirection: "row",
     maxHeight: 150,
     justifyContent: "center",
     alignContent: "center",
+    borderRadius: 10,
+    overflow: "hidden",
     gap: 10,
   },
   image: {
     flex: 2,
     backgroundColor: "red",
-    borderRadius: 10
   },
   details: {
+    paddingVertical: 5,
     flex: 6,
     overflow: "hidden",
   },
@@ -42,7 +45,7 @@ export const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 18,
     zIndex: 2,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: theme.white,
   },
   infos: {
     lineHeight: 14,

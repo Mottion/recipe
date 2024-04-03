@@ -32,7 +32,7 @@ const HomeScreen: React.FC = () => {
       showsHorizontalScrollIndicator={false}
       data={recipes}
       ListHeaderComponent={(<HomeHeaderComponent />)}
-      renderItem={({item, index}) => {
+      renderItem={({item}) => {
         return <RecipeComponent recipe={item} />
       }}
       onEndReached={() => getRecipes(recipes.length)}

@@ -55,6 +55,15 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
+
+  const getMyRecipes = (skip: number, take: number) => requestWrapper<RecipeProps[]>(async () => {
+    const {data} = await api.get("/recipe/user", {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { skip, take }
+    })
+    return data
+  })
+
   const getMyUser = async () => {
     const {data} = await api.get("/user", {
       headers: { Authorization: `Bearer ${token}` },
@@ -69,7 +78,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       userLogin,
       getTags,
       getRecipes,
-      getMyUser
+      getMyUser,
+      getMyRecipes
     }}>
       {children}
     </ServerContext.Provider >

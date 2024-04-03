@@ -14,7 +14,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({title, type, icons = []}) => {
       <Text style={[styles.title, {color}]}>{title}</Text>
       <View style={styles.icons}>
         <Feather name="bell" size={size} color={color} />
-        {icons.map((icon) => icon(size, color))}
+        {icons.map((icon, index) => icon(size, color, index))}
       </View>
     </View>
   )
