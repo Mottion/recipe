@@ -5,7 +5,8 @@ export declare global {
       signup: undefined,
       forgottenPassword: undefined,
       home: undefined,
-      profile: undefined
+      profile: undefined,
+      profileConfig: undefined
     }
   }
 }

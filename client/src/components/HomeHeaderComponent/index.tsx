@@ -23,7 +23,7 @@ const HomeHeaderComponent: React.FC = () => {
 
   return (
     <>
-      <PageHeader title="HOME" />
+      <PageHeader title="HOME" type="purple" />
       <View style={styles.searchWrapper}>
         <TextInput 
           style={styles.search} 
