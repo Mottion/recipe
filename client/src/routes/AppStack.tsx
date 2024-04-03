@@ -4,6 +4,7 @@ import HomeScreen from "../screens/home/HomeScreen";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import ProfileScreen from "../screens/profile/ProfileScreen";
+import FooterComponent from "../components/FooterComponent";
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
@@ -18,10 +19,13 @@ const AppStack = () => {
   }, [navigation]);
 
   return (
-    <Navigator screenOptions={{headerShown: false}}>
-      <Screen name="home" component={HomeScreen} />
-      <Screen name="profile" component={ProfileScreen} />
-    </Navigator>
+    <>
+      <Navigator screenOptions={{headerShown: false}}>
+        <Screen name="home" component={HomeScreen} />
+        <Screen name="profile" component={ProfileScreen} />
+      </Navigator>
+      <FooterComponent />
+    </>
   )
 }
 

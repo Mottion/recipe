@@ -8,9 +8,7 @@ const ProfileScreen: React.FC = () => {
 
   return (
     <View style={styles.container} >
-      <TouchableOpacity onPress={() => {navigation.navigate("home")}}>
-        <Text>Enviar 2</Text>
-      </TouchableOpacity>
+      
     </View>
   );
 }
