@@ -5,13 +5,17 @@ import { styles } from "./styles";
 import { PageHeaderProps } from "../../@types/components/PageHeaderProps";
 import { theme } from "../../globalStyle/globalStyle";
 
-const PageHeader: React.FC<PageHeaderProps> = ({title, type, icons}) => {
+const PageHeader: React.FC<PageHeaderProps> = ({title, type, icons = []}) => {
   let color = theme[type];
+  const size = 28
 
   return (
     <View style={styles.header}>
       <Text style={[styles.title, {color}]}>{title}</Text>
-      <Feather name="bell" size={28} color={color} />
+      <View style={styles.icons}>
+        <Feather name="bell" size={size} color={color} />
+        {icons.map((icon) => icon(size, color))}
+      </View>
     </View>
   )
 }

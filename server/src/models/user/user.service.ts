@@ -40,6 +40,12 @@ export class UserService {
     return response;
   }
 
+  async getMyUser(user: {id: string}){
+    const response = await this.userRepository.findById(user.id);
+    if(!response) throw new NotFoundException("User Not Found");
+    return response;
+  }
+
   async create(user: createUserDto){
     const response = await this.userRepository.create(user);
     const payload = { id: response.id, name: response.name };

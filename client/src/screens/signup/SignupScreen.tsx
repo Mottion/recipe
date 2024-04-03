@@ -75,8 +75,8 @@ const SignupScreen: React.FC = () => {
           <CustomInput label="Name" value={name} setValue={setName} placeholder="Enter with your name" />
           <CustomInput label="Email" value={email} setValue={setEmail} placeholder="Enter with your email" />
           <CustomInput label="Password" value={password} setValue={setPassword} placeholder="Enter with your password" />
-          <CustomButton text="Signup with Google" onPress={handleGoogleSignup} style="purple" />
-          <CustomButton text="Signup" onPress={handleSignup} style="white" />
+          <CustomButton text="Signup with Google" onPress={handleGoogleSignup} type="purple" />
+          <CustomButton text="Signup" onPress={handleSignup} type="white" />
         </View>
       </ScrollView>
 

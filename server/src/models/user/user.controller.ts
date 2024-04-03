@@ -51,4 +51,9 @@ export class UserController {
   async findById(@Param() params: pathId){
     return await this.userService.findById(params.id)
   }
+
+  @Get("/")
+  async getMyUser(@Req() req: Request){
+    return await this.userService.getMyUser(req["user"])
+  }
 }

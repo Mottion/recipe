@@ -11,4 +11,9 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "500",
   },
+  icons: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 15
+  }
 })

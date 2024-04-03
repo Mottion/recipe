@@ -1,5 +1,8 @@
+import { ViewStyle } from "react-native";
+
 export interface CustomButtonProps {
   text: string,
   onPress: (...args: any[]) => void;
-  style: "purple" | "white"
+  type: "purple" | "white",
+  style?: ViewStyle
 }

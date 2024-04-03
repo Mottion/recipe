@@ -44,8 +44,8 @@ const LoginScreen: React.FC = () => {
           <TouchableOpacity style={styles.forgetWrapper}>
             <Text style={styles.forget}>Forgot your password?</Text>
           </TouchableOpacity>
-          <CustomButton text="Login with Google" onPress={() => {}} style="purple" />
-          <CustomButton text="Login" onPress={handleLogin} style="white" />
+          <CustomButton text="Login with Google" onPress={() => {}} type="purple" />
+          <CustomButton text="Login" onPress={handleLogin} type="white" />
         </View>
       </ScrollView>
 

@@ -16,6 +16,17 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 50
   },
-  userName: {},
-  line: {},
+  userName: {
+    color: theme.white,
+    fontFamily: "Roboto-Bold",
+    fontSize: 30,
+    textAlign: "center",
+    paddingVertical: 10
+  },
+  line: {
+    borderBottomColor: theme.white,
+    borderBottomWidth: 2,
+    marginTop: 20,
+    width: "100%"
+  },
 })

@@ -55,13 +55,21 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
+  const getMyUser = async () => {
+    const {data} = await api.get("/user", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    return data
+  }
+
   return (
     <ServerContext.Provider value={{
       uploadImage,
       userSignup,
       userLogin,
       getTags,
-      getRecipes
+      getRecipes,
+      getMyUser
     }}>
       {children}
     </ServerContext.Provider >
