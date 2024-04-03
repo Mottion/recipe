@@ -5,6 +5,7 @@ import { useServer } from "../../context/ServerContext";
 import { TagProps } from "../../@types/dtos/TagProps";
 import { Feather } from '@expo/vector-icons';
 import TagComponent from "../TagComponent";
+import PageHeader from "../PageHeader";
 
 const HomeHeaderComponent: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -22,12 +23,7 @@ const HomeHeaderComponent: React.FC = () => {
 
   return (
     <>
-      <View style={styles.header}>
-        <Text style={styles.title}>
-          Home
-        </Text>
-        <Feather name="bell" size={28} color="black" />
-      </View>
+      <PageHeader title="HOME" />
       <View style={styles.searchWrapper}>
         <TextInput 
           style={styles.search} 
