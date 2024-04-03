@@ -12,11 +12,13 @@ export const styles = StyleSheet.create({
     alignContent: "center",
     borderRadius: 10,
     overflow: "hidden",
-    gap: 10,
+    gap: 5,
   },
   image: {
     flex: 2,
     backgroundColor: "red",
+    margin: 5,
+    borderRadius: 10,
   },
   details: {
     paddingVertical: 5,
