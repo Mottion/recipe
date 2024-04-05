@@ -6,7 +6,8 @@ export declare global {
       forgottenPassword: undefined,
       home: undefined,
       profile: undefined,
-      profileConfig: undefined
+      profileConfig: undefined,
+      newRecipe: undefined
     }
   }
 }

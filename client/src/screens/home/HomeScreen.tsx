@@ -11,7 +11,7 @@ const HomeScreen: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [lastIndex, setLastIndex] = useState<number>();
   const server = useServer();
-  const take = 2;
+  const take = 20;
   
   useEffect(() => {
     getRecipes(0);

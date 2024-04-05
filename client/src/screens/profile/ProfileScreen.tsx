@@ -20,7 +20,7 @@ const ProfileScreen: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [lastIndex, setLastIndex] = useState<number>();
-  const take = 2;
+  const take = 20;
 
   useEffect(() => {
     getMyUser();
@@ -55,10 +55,9 @@ const ProfileScreen: React.FC = () => {
       <PageHeader title="PROFILE" icons={icons} type="white" />
       <Image style={styles.image} source={user.image ? {uri: user.image} : require("../../../assets/user.jpg")}/>
       <Text style={styles.userName} >{user.name}</Text>
-      <CustomButton onPress={() => {}} type="white" text="+ NEW RECIPE" />
+      <CustomButton onPress={() => {navigate("newRecipe")}} type="white" text="+ NEW RECIPE" />
       <View style={styles.line} />
       <FlatList 
-        // style={styles.container}
         showsHorizontalScrollIndicator={false}
         data={recipes}
         renderItem={({item}) => {

@@ -21,7 +21,7 @@ const InputImage: React.FC<InputImageProps> = ({image, setImage}) => {
   }
 
   return (
-    <TouchableOpacity onPress={pickImage}>
+    <TouchableOpacity style={{width:"100%", alignItems: "center"}} onPress={pickImage}>
       <Image style={styles.image} source={image ? {uri: image.uri} : require("../../../assets/user.jpg")}/>
     </TouchableOpacity>
   );

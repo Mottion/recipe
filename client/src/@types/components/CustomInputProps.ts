@@ -1,3 +1,5 @@
+import { ViewStyle } from "react-native";
+
 export interface CustomInputProps {
   label: string,
   placeholder: string,

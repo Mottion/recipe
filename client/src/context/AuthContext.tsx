@@ -23,6 +23,9 @@ export const AuthProvider: React.FC<ContextProps> = ({ children }) => {
   }
 
   async function checkAuthentication(){
+    // put an authentication check here, which could be:
+    // 1. check if there is data in localStorage
+    // 2. make a request for some route to check authorization
   }
 
   async function login(auth: string){
