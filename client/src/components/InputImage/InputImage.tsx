@@ -16,13 +16,13 @@ const InputImage: React.FC<InputImageProps> = ({image, setImage}) => {
     });
     
     if (!result.canceled) {
-      setImage(result.assets[0]);
+      setImage(result.assets[0].uri);
     }
   }
 
   return (
     <TouchableOpacity style={{width:"100%", alignItems: "center"}} onPress={pickImage}>
-      <Image style={styles.image} source={image ? {uri: image.uri} : require("../../../assets/user.jpg")}/>
+      <Image style={styles.image} source={image ? {uri: image} : require("../../../assets/user.jpg")}/>
     </TouchableOpacity>
   );
 }

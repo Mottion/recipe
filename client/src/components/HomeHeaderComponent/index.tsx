@@ -8,7 +8,6 @@ import TagComponent from "../TagComponent";
 import PageHeader from "../PageHeader";
 
 const HomeHeaderComponent: React.FC = () => {
-  const [search, setSearch] = useState("");
   const server = useServer()
   const [tags, setTags] = useState<TagProps[]>([]);
   
@@ -23,16 +22,6 @@ const HomeHeaderComponent: React.FC = () => {
 
   return (
     <>
-      <View style={styles.searchWrapper}>
-        <TextInput 
-          style={styles.search} 
-          value={search} 
-          onChangeText={setSearch} 
-          placeholder="Search"
-          placeholderTextColor="#6d6d6d"
-        />
-        <Feather style={styles.filter} name="filter" size={24} />
-      </View>
       <TouchableOpacity style={styles.adSpace}>
         <Image style={styles.ads} source={require("../../../assets/ads.png")} />
       </TouchableOpacity>

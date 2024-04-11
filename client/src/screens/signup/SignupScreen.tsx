@@ -18,7 +18,7 @@ const SignupScreen: React.FC = () => {
   const [name, setName] = useState<string>("Adrian");
   const [email, setEmail] = useState<string>("adrianelizandro78@gmail.com");
   const [password, setPassword] = useState<string>("Senha123");
-  const [image, setImage] = useState<ImagePickerAsset | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const navigation = useNavigation();
   const {showNotify} = useNotify();
   const {login} = useAuth();

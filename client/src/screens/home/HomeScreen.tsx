@@ -12,6 +12,7 @@ const HomeScreen: React.FC = () => {
   const [recipes, setRecipes] = useState<RecipeProps[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [lastIndex, setLastIndex] = useState<number>();
+  const [search, setSearch] = useState("");
   const server = useServer();
   const take = 20;
   const navigation = useNavigation();
@@ -40,7 +41,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader title="HOME" type="purple" />
+      <PageHeader title="HOME" type="purple" search={{state: search, setState: setSearch}} />
       <FlatList 
         showsVerticalScrollIndicator={false}
         data={recipes}

@@ -5,6 +5,6 @@ export const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 25,
     display: "flex",
-    paddingBottom: 100
+    paddingBottom: 150
   },
 })

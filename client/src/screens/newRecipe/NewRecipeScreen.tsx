@@ -15,6 +15,7 @@ import { ImagePickerAsset } from "expo-image-picker";
 import { useNotify } from "../../context/NotifyContext";
 import { useUtils } from "../../context/Utils";
 import { baseUrl } from "../../services/axiosConfig";
+import { useNavigation } from "@react-navigation/native";
 
 const NewRecipeScreen: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -24,10 +25,11 @@ const NewRecipeScreen: React.FC = () => {
   const [description, setDescription] = useState<string>("");
   const [methodOfPreparation, setMethodOfPreparation] = useState<string>("");
   const [ingredients, setIngredients] = useState<string[]>(["1 cooo", "2 cooo"]);
-  const [image, setImage] = useState<ImagePickerAsset | null>(null);
-  const server = useServer();
+  const [image, setImage] = useState<string | null>(null);
   const {showNotify} = useNotify();
+  const server = useServer();
   const utils = useUtils();
+  const navigation = useNavigation();
 
   useEffect(() => {
     getTags();
@@ -63,7 +65,7 @@ const NewRecipeScreen: React.FC = () => {
     });
     
     if (!result.canceled) {
-      setImage(result.assets[0]);
+      setImage(result.assets[0].uri);
     }
   }
 
@@ -87,6 +89,9 @@ const NewRecipeScreen: React.FC = () => {
       tagId: selectedTag.id,
       image: `${baseUrl}/${imagePath}`,
     });
+    if(response){
+      navigation.navigate("profile");
+    }
   }
   
   return (
@@ -99,7 +104,7 @@ const NewRecipeScreen: React.FC = () => {
 
         <View style={styles.header} >
           <TouchableOpacity style={{alignItems: "center"}} onPress={pickImage}>
-            <Image style={styles.image} source={image ? {uri: image.uri} : require("../../../assets/upload.png")}/>
+            <Image style={styles.image} source={image ? {uri: image} : require("../../../assets/upload.png")}/>
           </TouchableOpacity>
           <View style={styles.headerInfos}>
             <TextInput value={name} onChangeText={setName} placeholder="name" style={styles.input}/>
