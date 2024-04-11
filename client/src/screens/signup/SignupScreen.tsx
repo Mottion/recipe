@@ -12,6 +12,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useServer } from "../../context/ServerContext";
 import { ImagePickerAsset } from "expo-image-picker";
 import { baseUrl } from "../../services/axiosConfig";
+import { useUtils } from "../../context/Utils";
 
 const SignupScreen: React.FC = () => {
   const [name, setName] = useState<string>("Adrian");
@@ -22,6 +23,7 @@ const SignupScreen: React.FC = () => {
   const {showNotify} = useNotify();
   const {login} = useAuth();
   const server = useServer();
+  const utils = useUtils();
 
   function handleGoogleSignup(){
 
@@ -35,7 +37,7 @@ const SignupScreen: React.FC = () => {
 
     let imagePath: string | null = null;
     if(image){
-      imagePath = await uploadImage();
+      imagePath = await utils.uploadImage(image);
     }
     const response = await server.userSignup({
       name, email, password,
@@ -46,20 +48,6 @@ const SignupScreen: React.FC = () => {
       login(response);
     }
 
-  }
-
-  async function uploadImage(){
-    const formData = new FormData();
-    const extension = image?.uri.split('.').pop();
-    const data = {
-      name: "name",
-      uri: image?.uri,
-      type: "image/"+ extension,
-    }
-    formData.append("file", data as any)
-
-    const response = await server.uploadImage(formData);
-    return response;
   }
 
   return (

@@ -7,8 +7,11 @@ export const styles = StyleSheet.create({
     alignContent: "center",
     paddingVertical: 50,
     paddingHorizontal: 25,
-    backgroundColor: theme.primary,
     marginBottom: 50
+  },
+  scroll: {
+    flex: 1, 
+    width: "100%",
   },
   header: {
     width: "100%",
@@ -19,7 +22,8 @@ export const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
-    borderRadius: 10
+    borderRadius: 10,
+    backgroundColor: theme.gray,
   },
   headerInfos: {
     flex: 1,
@@ -41,7 +45,8 @@ export const styles = StyleSheet.create({
   ingredients: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginBottom: 15,
   },
   label: {
     fontFamily: "Roboto-Medium",
@@ -57,6 +62,17 @@ export const styles = StyleSheet.create({
     justifyContent: "center"
   },
   save: {
-    marginTop: "auto"
-  }
+    
+  },
+  tagWrapper: {
+  },
+  tagOption: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderBottomColor: theme.gray,
+    borderBottomWidth: 0.5
+  },
+  tagOptionTittle: {
+    fontSize: 16,
+  },
 })

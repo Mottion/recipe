@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import Notify from './src/components/Notify/Notify';
 import { NotifyProvider } from './src/context/NotifyContext';
 import { ServerProvider } from './src/context/ServerContext';
+import { UtilsProvider } from './src/context/Utils';
 
 export default function App() {
 
@@ -20,8 +21,10 @@ export default function App() {
     <NotifyProvider>
       <AuthProvider>
         <ServerProvider>
-          <Routes/>
-          <Notify />
+          <UtilsProvider>
+            <Routes/>
+            <Notify />
+          </UtilsProvider>
         </ServerProvider>
       </AuthProvider>
     </NotifyProvider>
