@@ -4,9 +4,10 @@ import { ContextProps } from "../@types/contexts/ContextProps";
 import api from "../services/axiosConfig";
 import { useAuth } from "./AuthContext";
 import { useNotify } from "./NotifyContext";
-import { UserProps } from "../@types/dtos/UserProps";
-import { RecipeProps } from "../@types/dtos/RecipeProps";
-import { TagProps } from "../@types/dtos/TagProps";
+import { UserProps } from "../@types/models/UserProps";
+import { RecipeProps } from "../@types/models/RecipeProps";
+import { TagProps } from "../@types/models/TagProps";
+import { CreateRecipeProps } from "../@types/dtos/CreateRecipeProps";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
@@ -64,6 +65,15 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
+  const createRecipe = (request: CreateRecipeProps) => requestWrapper<RecipeProps>(async () => {
+    const {data} = await api.post(
+      "/recipe", 
+      request, 
+      {headers: { Authorization: `Bearer ${token}` }}
+    );
+    return data
+  })
+
   const getMyUser = async () => {
     const {data} = await api.get("/user", {
       headers: { Authorization: `Bearer ${token}` },
@@ -79,7 +89,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       getTags,
       getRecipes,
       getMyUser,
-      getMyRecipes
+      getMyRecipes,
+      createRecipe
     }}>
       {children}
     </ServerContext.Provider >

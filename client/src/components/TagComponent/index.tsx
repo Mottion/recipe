@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity } from "react-native";
-import { TagProps } from "../../@types/dtos/TagProps";
+import { TagProps } from "../../@types/models/TagProps";
 import { styles } from "./style";
 
 const TagComponent: React.FC<{tag: TagProps}> = ({tag}) => {

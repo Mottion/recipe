@@ -9,8 +9,8 @@ import CustomButton from "../../components/CustomButton/CustomButton";
 import { LinearGradient } from "expo-linear-gradient";
 import { theme } from "../../globalStyle/globalStyle";
 import { useServer } from "../../context/ServerContext";
-import { UserProps } from "../../@types/dtos/UserProps";
-import { RecipeProps } from "../../@types/dtos/RecipeProps";
+import { UserProps } from "../../@types/models/UserProps";
+import { RecipeProps } from "../../@types/models/RecipeProps";
 import { RecipeComponent } from "../../components/RecipeComponent";
 
 const ProfileScreen: React.FC = () => {
@@ -21,11 +21,18 @@ const ProfileScreen: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [lastIndex, setLastIndex] = useState<number>();
   const take = 20;
+  const navigation = useNavigation();
 
   useEffect(() => {
-    getMyUser();
-    getRecipes(0);
-  }, [])
+    const unsubscribe = navigation.addListener('state', ({data}) => {
+      const {routes} = data.state;
+      if(routes[routes.length - 1].name == "profile"){
+        getMyUser();
+        getRecipes(0);
+      }
+    });
+    return () => {unsubscribe();};
+  }, []);
 
   async function getMyUser(){
     const response = await server.getMyUser();

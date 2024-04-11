@@ -1,6 +1,7 @@
-import { RecipeProps } from "../dtos/RecipeProps";
-import { TagProps } from "../dtos/TagProps";
-import { UserProps } from "../dtos/UserProps";
+import { CreateRecipeProps } from "../dtos/CreateRecipeProps";
+import { RecipeProps } from "../models/RecipeProps";
+import { TagProps } from "../models/TagProps";
+import { UserProps } from "../models/UserProps";
 
 export interface ServerContextProps{
   uploadImage: (file: FormData) => Promise<string>,
@@ -10,4 +11,5 @@ export interface ServerContextProps{
   getRecipes: (skip: number, take: number) => Promise<RecipeProps[]>,
   getMyRecipes: (skip: number, take: number) => Promise<RecipeProps[]>,
   getMyUser: () => Promise<UserProps>,
+  createRecipe: (request: CreateRecipeProps) => Promise<RecipeProps>,
 }

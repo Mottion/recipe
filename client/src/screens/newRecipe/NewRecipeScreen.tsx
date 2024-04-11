@@ -7,13 +7,14 @@ import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "reac
 import MultiLineInput from "../../components/MultiLineInput";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useServer } from "../../context/ServerContext";
-import { TagProps } from "../../@types/dtos/TagProps";
+import { TagProps } from "../../@types/models/TagProps";
 import SelectDropdown from "react-native-select-dropdown";
 import IngredientInput from "../../components/IngredientInput";
 import * as ImagePicker from 'expo-image-picker';
 import { ImagePickerAsset } from "expo-image-picker";
 import { useNotify } from "../../context/NotifyContext";
 import { useUtils } from "../../context/Utils";
+import { baseUrl } from "../../services/axiosConfig";
 
 const NewRecipeScreen: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -76,6 +77,16 @@ const NewRecipeScreen: React.FC = () => {
       return 
     }
     const imagePath = await utils.uploadImage(image);
+
+    const response = await server.createRecipe({
+      name,
+      description,
+      ingredients,
+      methodOfPreparation,
+      kcal: Number(kcal),
+      tagId: selectedTag.id,
+      image: `${baseUrl}/${imagePath}`,
+    });
   }
   
   return (

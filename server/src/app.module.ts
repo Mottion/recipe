@@ -15,7 +15,7 @@ import { RecipeModule } from './models/recipe/recipe.module';
       envFilePath: ['.env.development.local', ".env.development"]
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'),
+      rootPath: join(__dirname, '../..', 'uploads'),
       serveRoot: '/uploads'
     }),
     UserModule,

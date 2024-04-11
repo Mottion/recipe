@@ -1,5 +1,5 @@
 import React from "react";
-import { RecipeProps } from "../../@types/dtos/RecipeProps";
+import { RecipeProps } from "../../@types/models/RecipeProps";
 import { Image, Text, View } from "react-native";
 import { styles } from "./styles";
 import { AntDesign } from '@expo/vector-icons';

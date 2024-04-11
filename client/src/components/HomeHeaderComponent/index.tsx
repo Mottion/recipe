@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useServer } from "../../context/ServerContext";
-import { TagProps } from "../../@types/dtos/TagProps";
+import { TagProps } from "../../@types/models/TagProps";
 import { Feather } from '@expo/vector-icons';
 import TagComponent from "../TagComponent";
 import PageHeader from "../PageHeader";
@@ -23,7 +23,6 @@ const HomeHeaderComponent: React.FC = () => {
 
   return (
     <>
-      <PageHeader title="HOME" type="purple" />
       <View style={styles.searchWrapper}>
         <TextInput 
           style={styles.search} 
