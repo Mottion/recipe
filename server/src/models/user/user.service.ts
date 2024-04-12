@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException, UnsupportedMediaTypeException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException, UnsupportedMediaTypeException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { createUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -58,9 +58,16 @@ export class UserService {
     return response
   }
 
-  async update(id: string, data: updateUserDto, req: Request){
-    await this.checkAuthorization(id, req)
-    const response = await this.userRepository.update(id, data);
+  async update(id: string, data: updateUserDto){
+    if(data.newPassword !== data.passwordConfirm){
+      throw new ConflictException("error validating password confirmation");
+    }
+
+    const {image, name, newPassword} = data; 
+
+    const response = await this.userRepository.update(id, {
+      image, name, password: newPassword
+    });
     return response
   }
 

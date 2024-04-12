@@ -1,4 +1,5 @@
 import { CreateRecipeProps } from "../dtos/CreateRecipeProps";
+import { UpdateUserProps } from "../dtos/UpdateUserProps";
 import { RecipeProps } from "../models/RecipeProps";
 import { TagProps } from "../models/TagProps";
 import { UserProps } from "../models/UserProps";
@@ -12,4 +13,5 @@ export interface ServerContextProps{
   getMyRecipes: (skip: number, take: number) => Promise<RecipeProps[]>,
   getMyUser: () => Promise<UserProps>,
   createRecipe: (request: CreateRecipeProps) => Promise<RecipeProps>,
+  updateUser: (request: UpdateUserProps) => Promise<UserProps>;
 }

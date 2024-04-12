@@ -42,9 +42,9 @@ export class UserController {
     return await this.userService.deleteById(params.id, req);
   }
 
-  @Patch("/:id")
-  async update(@Req() req: Request, @Body() body: updateUserDto, @Param() params: pathId){
-    return await this.userService.update(params.id, body, req);
+  @Patch()
+  async update(@Req() req: Request, @Body() body: updateUserDto){
+    return await this.userService.update(req["user"].id, body);
   }
 
   @Get("/:id")

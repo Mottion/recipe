@@ -55,7 +55,7 @@ export class UserRepository {
 
   async update(
     id: string,
-    data: updateUserDto,
+    data: Prisma.UserUpdateInput,
     keys: (keyof Prisma.UserSelect)[] = ["id", "name", "image", "email"]
   ){
     const response = await this.prisma.user.update({

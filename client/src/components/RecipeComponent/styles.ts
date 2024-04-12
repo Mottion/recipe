@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
   },
   image: {
     flex: 2,
-    backgroundColor: "red",
     margin: 5,
     borderRadius: 10,
   },

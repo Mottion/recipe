@@ -8,6 +8,7 @@ import { UserProps } from "../@types/models/UserProps";
 import { RecipeProps } from "../@types/models/RecipeProps";
 import { TagProps } from "../@types/models/TagProps";
 import { CreateRecipeProps } from "../@types/dtos/CreateRecipeProps";
+import { UpdateUserProps } from "../@types/dtos/UpdateUserProps";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
@@ -81,6 +82,17 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   }
 
+  const updateUser = async (request: UpdateUserProps) => {
+    console.log("🚀 ~ updateUser ~ request:", request)
+    const {data} = await api.patch(
+      "/user", 
+      request, 
+      {headers: { Authorization: `Bearer ${token}` }}
+    )
+    console.log("🚀 ~ updateUser ~ data:", data)
+    return data
+  }
+
   return (
     <ServerContext.Provider value={{
       uploadImage,
@@ -90,7 +102,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       getRecipes,
       getMyUser,
       getMyRecipes,
-      createRecipe
+      createRecipe,
+      updateUser
     }}>
       {children}
     </ServerContext.Provider >

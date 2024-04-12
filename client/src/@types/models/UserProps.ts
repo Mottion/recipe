@@ -2,5 +2,5 @@ export interface UserProps {
   name: string;
   email: string;
   password: string;
-  image: string | null;
+  image: string | undefined;
 }
