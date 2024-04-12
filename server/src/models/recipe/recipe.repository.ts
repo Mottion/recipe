@@ -26,5 +26,11 @@ export class RecipeRepository {
     return response;
   }
 
-  
+  async getRecipe(recipeId: string){
+    const response = await this.prisma.recipe.findFirst({
+      where: {id: recipeId},
+      ...GetRecipeDto.include
+    });
+    return response;
+  }
 }

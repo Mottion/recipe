@@ -27,5 +27,11 @@ export class RecipeController {
   async getMyRecipes(@Req() req: Request, @Query() query: QueryRecipeDto){
     return await this.recipeService.getRecipes(+query.skip, +query.take, req["user"].id);
   }
+
+  @Get(":id")
+  async getRecipe(@Req() req: Request, @Param() params: pathId){
+    return await this.recipeService.getRecipe(req["user"].id, params.id);
+  }
+  
   
 }

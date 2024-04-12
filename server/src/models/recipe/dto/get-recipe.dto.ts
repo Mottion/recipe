@@ -2,7 +2,7 @@ import { Prisma, Rating, Recipe } from '@prisma/client';
 import * as Joi from 'joi';
 import { JoiSchema, JoiSchemaOptions } from 'nestjs-joi';
 
-const include = {include: {ratings: true, owner: {select: {name: true}}, tag: {select: {name: true}}}};
+const include = {include: {ratings: true, owner: {select: {id: true, name: true}}, tag: {select: {name: true}}}};
 @JoiSchemaOptions({allowUnknown: false})
 export class GetRecipeDto {
   @JoiSchema(Joi.string().required())
@@ -11,6 +11,8 @@ export class GetRecipeDto {
   tag: string;
   @JoiSchema(Joi.string().required())
   author: string;
+  @JoiSchema(Joi.boolean())
+  isOwner?: boolean;
   @JoiSchema(Joi.string().required())
   name: string;
   @JoiSchema(Joi.string().required())
@@ -28,7 +30,7 @@ export class GetRecipeDto {
 
   
   static include = include;
-  constructor(args: Prisma.RecipeGetPayload<typeof include>){
+  constructor(args: Prisma.RecipeGetPayload<typeof include>, userId?: string){
     this.id = args.id;
     this.tag = args.tag.name;
     this.author = args.owner.name;
@@ -38,6 +40,11 @@ export class GetRecipeDto {
     this.image = args.image;
     this.methodOfPreparation = args.methodOfPreparation;
     this.kcal = args.kcal;
+
+    if(userId){
+      this.isOwner = userId == args.owner.id ? true : false;
+    }
+
     if(args.ratings.length == 0){
       this.rating = 0;
     } else {
