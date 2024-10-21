@@ -4,7 +4,7 @@ export interface RecipeProps {
   author: string;
   name: string;
   description: string;
-  ingredients: string;
+  ingredients: string[];
   image: string;
   methodOfPreparation: string;
   kcal: number;

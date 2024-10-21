@@ -9,7 +9,7 @@ const UtilsContext = createContext<UtilsContextProps>({} as UtilsContextProps);
 export const UtilsProvider: React.FC<ContextProps> = ({ children }) => {
   const server = useServer();
   
-  async function uploadImage(image: string | null){
+  async function uploadImage(image: string | undefined){
     const formData = new FormData();
     const extension = image?.split('.').pop();
     const data = {

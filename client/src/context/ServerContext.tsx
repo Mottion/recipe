@@ -66,6 +66,13 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
+  const getRecipe = (id: string) => requestWrapper<RecipeProps>(async () => {
+    const {data} = await api.get(`recipe/${id}`,{
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    return data;
+  })
+
   const createRecipe = (request: CreateRecipeProps) => requestWrapper<RecipeProps>(async () => {
     const {data} = await api.post(
       "/recipe", 
@@ -83,13 +90,11 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
   }
 
   const updateUser = async (request: UpdateUserProps) => {
-    console.log("🚀 ~ updateUser ~ request:", request)
     const {data} = await api.patch(
       "/user", 
       request, 
       {headers: { Authorization: `Bearer ${token}` }}
     )
-    console.log("🚀 ~ updateUser ~ data:", data)
     return data
   }
 
@@ -100,6 +105,7 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       userLogin,
       getTags,
       getRecipes,
+      getRecipe,
       getMyUser,
       getMyRecipes,
       createRecipe,

@@ -24,7 +24,7 @@ const NewRecipeScreen: React.FC = () => {
   const [selectedTag, setSelectedTag] = useState<TagProps>();
   const [description, setDescription] = useState<string>("");
   const [methodOfPreparation, setMethodOfPreparation] = useState<string>("");
-  const [ingredients, setIngredients] = useState<string[]>(["1 cooo", "2 cooo"]);
+  const [ingredients, setIngredients] = useState<string[]>([]);
   const [image, setImage] = useState<string | null>(null);
   const {showNotify} = useNotify();
   const server = useServer();
