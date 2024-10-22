@@ -11,11 +11,13 @@ export interface ServerContextProps{
   getTags: () => Promise<TagProps[]>,
   getRecipes: (skip: number, take: number) => Promise<RecipeProps[]>,
   getRecipe: (id: string) => Promise<RecipeProps>,
+  updateFavorite: (id: string, newState: boolean) => Promise<RecipeProps>,
+  getMyFavorites: (skip: number, take: number) => Promise<RecipeProps[]>,
   getMyRecipes: (skip: number, take: number) => Promise<RecipeProps[]>,
   getUserRecipes: (id: string, skip: number, take: number) => Promise<RecipeProps[]>,
   getMyUser: () => Promise<UserProps>,
   getUser: (tag: string) => Promise<UserProps>,
   createRecipe: (request: CreateRecipeProps) => Promise<RecipeProps>,
   updateUser: (request: UpdateUserProps) => Promise<UserProps>;
-  updateFollow: (id: string, newState: boolean) => Promise<boolean>;
+  updateFollow: (id: string, newState: boolean) => Promise<UserProps>;
 }

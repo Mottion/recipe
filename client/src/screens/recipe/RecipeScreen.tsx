@@ -10,6 +10,7 @@ import { theme } from "../../globalStyle/globalStyle";
 import Fontisto from '@expo/vector-icons/Fontisto';
 import DescriptionComponent from "../../components/DescriptionComponent";
 import IngredientComponent from "../../components/IngredientComponent";
+import { useNotify } from "../../context/NotifyContext";
 
 const RecipeScreen: React.FC = () => {
   const [recipe, setRecipe] = useState<RecipeProps>({} as RecipeProps);
@@ -17,7 +18,7 @@ const RecipeScreen: React.FC = () => {
   const navigation = useNavigation();
   const { params } = navigation.getState().routes[navigation.getState().index];
   const server = useServer();
-
+  const {showNotify} = useNotify();
   
   useEffect(() => {
     getRecipe(params?.id);
@@ -28,6 +29,11 @@ const RecipeScreen: React.FC = () => {
       const response = await server.getRecipe(id);
       setRecipe(response);
     }
+  }
+
+  const updateFavorite = async () => {
+    const response = await server.updateFavorite(recipe.id, !recipe.isFavorite);
+    setRecipe(response);
   }
 
   if(!Object.keys(recipe).length) return;
@@ -48,7 +54,7 @@ const RecipeScreen: React.FC = () => {
                 <AntDesign name="star" size={25} color={theme.yellow} />
               </Text>
               <TouchableOpacity style={styles.rating}>
-                <Fontisto name="favorite" size={25} color={theme.gray} />
+                <Fontisto onPress={updateFavorite} name="favorite" size={25} color={recipe.isFavorite ? theme.yellow : theme.gray} />
               </TouchableOpacity>
             </View>
             <Text style={styles.infos}>{recipe.tag} - {recipe.kcal} kcal</Text>

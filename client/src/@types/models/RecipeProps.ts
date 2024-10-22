@@ -10,4 +10,5 @@ export interface RecipeProps {
   methodOfPreparation: string;
   kcal: number;
   rating: number;
+  isFavorite?: boolean
 } 

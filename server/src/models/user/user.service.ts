@@ -83,9 +83,9 @@ export class UserService {
       query = {followers: {disconnect: {id: requesterId}}}; 
     }
 
-    const response = await this.userRepository.update(body.id, query);
-    return response
-
+    const {followers, ...response} = await this.userRepository.update(body.id, query, requesterId);
+    const isFollower = followers.length > 0 ? true : false;
+    return {...response, isFollower}
   }
 
   async findById(id: string, userId: string){

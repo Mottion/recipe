@@ -56,12 +56,16 @@ export class UserRepository {
   async update(
     id: string,
     data: Prisma.UserUpdateInput,
-    keys: (keyof Prisma.UserSelect)[] = ["id", "name", "image", "email"]
+    userId?: string,
+    keys: (keyof Prisma.UserSelect)[] = ["id", "email", "image", "name"],
   ){
     const response = await this.prisma.user.update({
       where: {id},
       data: data,
-      select: pickSelect(keys) as Prisma.UserSelect
+      select: {
+        ...pickSelect(keys) as Prisma.UserSelect,
+        followers: {where: {id: userId}, select: {id: true}}
+      },
     });
     return response;
   }

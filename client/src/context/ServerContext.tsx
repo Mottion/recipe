@@ -81,6 +81,24 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data;
   })
 
+  const updateFavorite = (id: string, newState: boolean) => requestWrapper<RecipeProps>(async () => {
+    const request = {id, newState};
+    const {data} = await api.patch(
+      `recipe/favorite`,
+      request,
+      {headers: { Authorization: `Bearer ${token}`}}
+    )
+    return data;
+  })
+
+  const getMyFavorites = (skip: number, take: number) => requestWrapper<RecipeProps[]>(async () => {
+    const {data} = await api.get(`recipe/favorites`,{
+      headers: { Authorization: `Bearer ${token}`},
+      params: { skip, take },
+    })
+    return data;
+  })
+
   const createRecipe = (request: CreateRecipeProps) => requestWrapper<RecipeProps>(async () => {
     const {data} = await api.post(
       "/recipe", 
@@ -114,7 +132,7 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
-  const updateFollow = async (id: string, newState: boolean) => requestWrapper<boolean>(async () => {
+  const updateFollow = async (id: string, newState: boolean) => requestWrapper<UserProps>(async () => {
     const request = {id, newState};
     const {data} = await api.patch(
       "/user/follow", 
@@ -132,6 +150,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       getTags,
       getRecipes,
       getRecipe,
+      updateFavorite,
+      getMyFavorites,
       getMyUser,
       getUser,
       getMyRecipes,

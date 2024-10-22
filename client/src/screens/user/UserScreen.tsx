@@ -47,10 +47,7 @@ const UserScreen: React.FC = () => {
 
   const handleFollow = async () => {
     const response = await server.updateFollow(params.id, !user?.isFollower);
-
-    if(response){
-      getUser();
-    }
+    setUser(response);
   }
 
   

@@ -50,7 +50,7 @@ export class UserController {
 
 
   @Patch("/follow")
-  async handleFollow(@Req() req: Request, @Body() body: updateFollowDto){
+  async updateFollow(@Req() req: Request, @Body() body: updateFollowDto){
     return await this.userService.updateFollow(req["user"].id, body);
   }
 

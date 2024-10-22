@@ -10,6 +10,7 @@ export declare global {
       newRecipe: undefined,
       recipe: {id: string},
       user: {id: string},
+      save: undefined
     }
   }
 }

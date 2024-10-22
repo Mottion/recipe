@@ -15,7 +15,7 @@ const FooterComponent: React.FC = () => {
       <Entypo onPress={() => {navigate("home")}} name="home" size={30} color={theme.primary} />
       <FontAwesome5 onPress={() => {navigate("profile")}} name="user-circle" size={30} color={theme.primary} />
       <MaterialCommunityIcons name="email-outline" size={30} color={theme.primary} />
-      <Fontisto name="favorite" size={30} color={theme.primary} />
+      <Fontisto onPress={() => {navigate("save")}} name="favorite" size={30} color={theme.primary} />
     </View>
   )
 }
