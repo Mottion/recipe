@@ -43,7 +43,7 @@ export class UserRepository {
     });
     return response;
   }
-  
+
   async deleteById(
     id: string,
   ){
@@ -66,6 +66,18 @@ export class UserRepository {
     return response;
   }
 
+  async checkIfIsFollower(
+    requesterId: string,
+    requestedId: string,
+  ){
+    const response = await this.prisma.user.findFirst({
+      where: {id: requestedId},
+      select: {
+        followers: {where: {id: requesterId}}
+      }
+    });
+    return response.followers.length == 0 ? false : true;
+  }
 
   async getById(
     id: string,

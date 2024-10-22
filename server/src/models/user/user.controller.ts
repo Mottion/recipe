@@ -6,6 +6,7 @@ import { createUserDto } from './dto/create-user.dto';
 import { Public } from '../../providers/auth/public.decorator';
 import { updateUserDto } from './dto/update-user-dto';
 import { pathId } from 'src/utils/dtos/path-id';
+import { updateFollowDto } from './dto/update-follow.dto';
 
 const multerInterceptor = {
   storage: diskStorage({
@@ -47,9 +48,15 @@ export class UserController {
     return await this.userService.update(req["user"].id, body);
   }
 
+
+  @Patch("/follow")
+  async handleFollow(@Req() req: Request, @Body() body: updateFollowDto){
+    return await this.userService.updateFollow(req["user"].id, body);
+  }
+
   @Get("/:id")
-  async findById(@Param() params: pathId){
-    return await this.userService.findById(params.id)
+  async findById(@Param() params: pathId, @Req() req: Request){
+    return await this.userService.findById(params.id, req["user"].id)
   }
 
   @Get("/")

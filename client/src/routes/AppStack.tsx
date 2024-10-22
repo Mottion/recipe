@@ -10,6 +10,7 @@ import FooterComponent from "../components/FooterComponent";
 
 import { theme } from "../globalStyle/globalStyle";
 import RecipeScreen from "../screens/recipe/RecipeScreen";
+import UserScreen from "../screens/user/UserScreen";
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
@@ -31,6 +32,8 @@ const AppStack = () => {
         <Screen name="profileConfig" component={ProfileConfigScreen} />
         <Screen name="newRecipe" component={NewRecipeScreen} />
         <Screen name="recipe" component={RecipeScreen} />
+        <Screen name="user" component={UserScreen} />
+
       </Navigator>
       <FooterComponent />
     </>

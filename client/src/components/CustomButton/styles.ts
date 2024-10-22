@@ -6,6 +6,11 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 15,
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 10
   },
   label: {
     fontFamily: "Roboto-Bold",

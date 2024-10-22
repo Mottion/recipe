@@ -11,6 +11,8 @@ export class GetRecipeDto {
   tag: string;
   @JoiSchema(Joi.string().required())
   author: string;
+  @JoiSchema(Joi.string().required())
+  authorId: string;
   @JoiSchema(Joi.boolean())
   isOwner?: boolean;
   @JoiSchema(Joi.string().required())
@@ -34,6 +36,7 @@ export class GetRecipeDto {
     this.id = args.id;
     this.tag = args.tag.name;
     this.author = args.owner.name;
+    this.authorId = args.owner.id;
     this.name = args.name;
     this.description = args.description;
     this.ingredients = args.ingredients;

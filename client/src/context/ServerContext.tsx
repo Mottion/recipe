@@ -66,6 +66,14 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
+  const getUserRecipes = (id: string, skip: number, take: number) => requestWrapper<RecipeProps[]>(async () => {
+    const {data} = await api.get(`/recipe/user/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { skip, take }
+    })
+    return data
+  })
+
   const getRecipe = (id: string) => requestWrapper<RecipeProps>(async () => {
     const {data} = await api.get(`recipe/${id}`,{
       headers: { Authorization: `Bearer ${token}`}
@@ -89,14 +97,32 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   }
 
-  const updateUser = async (request: UpdateUserProps) => {
+  const getUser = async (tag: string) => {
+    const {data} = await api.get(`/user/${tag}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    return data
+  }
+
+
+  const updateUser = async (request: UpdateUserProps) => requestWrapper<UserProps>(async () => {
     const {data} = await api.patch(
       "/user", 
       request, 
       {headers: { Authorization: `Bearer ${token}` }}
     )
     return data
-  }
+  })
+
+  const updateFollow = async (id: string, newState: boolean) => requestWrapper<boolean>(async () => {
+    const request = {id, newState};
+    const {data} = await api.patch(
+      "/user/follow", 
+      request, 
+      {headers: { Authorization: `Bearer ${token}` }}
+    )
+    return data
+  })
 
   return (
     <ServerContext.Provider value={{
@@ -107,9 +133,12 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       getRecipes,
       getRecipe,
       getMyUser,
+      getUser,
       getMyRecipes,
+      getUserRecipes,
       createRecipe,
-      updateUser
+      updateUser,
+      updateFollow
     }}>
       {children}
     </ServerContext.Provider >

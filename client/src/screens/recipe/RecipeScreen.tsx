@@ -26,7 +26,6 @@ const RecipeScreen: React.FC = () => {
   async function getRecipe(id: string | undefined){
     if(id){
       const response = await server.getRecipe(id);
-      console.log("🚀 ~ getRecipe ~ response:", response)
       setRecipe(response);
     }
   }
@@ -43,7 +42,7 @@ const RecipeScreen: React.FC = () => {
           <View style={styles.details}>
             <View style={styles.header}>
               <Text style={styles.name}>{recipe.name}</Text>
-              <Link to={`/user/${recipe.author}`} style={styles.author}>@{recipe.author}</Link>
+              <Text onPress={() => {navigation.navigate("user", {id: recipe.authorId})}} style={styles.author}>@{recipe.author}</Text>
               <Text style={styles.rating}>
                 {recipe.rating}
                 <AntDesign name="star" size={25} color={theme.yellow} />

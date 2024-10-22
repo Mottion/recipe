@@ -2,6 +2,7 @@ export interface RecipeProps {
   id: string;
   tag: string;
   author: string;
+  authorId: string;
   name: string;
   description: string;
   ingredients: string[];

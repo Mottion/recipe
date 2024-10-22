@@ -3,4 +3,6 @@ export interface UserProps {
   email: string;
   password: string;
   image: string | undefined;
+  isFollower?: boolean;
+  IsMyProfile?: boolean;
 }

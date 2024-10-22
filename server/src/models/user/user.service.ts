@@ -4,6 +4,8 @@ import { createUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { AccessTokenDto } from '../../providers/auth/dto/access-token.dto';
 import { updateUserDto } from './dto/update-user-dto';
+import { updateFollowDto } from './dto/update-follow.dto';
+import { Prisma } from '@prisma/client';
 const fs = require('fs');
 
 @Injectable()
@@ -71,10 +73,27 @@ export class UserService {
     return response
   }
 
-  async findById(id: string){
+
+  async updateFollow(requesterId: string, body: updateFollowDto){
+    let query: Prisma.UserUpdateInput = {};
+
+    if(body.newState){
+      query = {followers: {connect: {id: requesterId}}};
+    }else{
+      query = {followers: {disconnect: {id: requesterId}}}; 
+    }
+
+    const response = await this.userRepository.update(body.id, query);
+    return response
+
+  }
+
+  async findById(id: string, userId: string){
     const response = await this.userRepository.findById(id);
     if(!response) throw new NotFoundException("User not found");
-    return response;
+    const isFollower = await this.userRepository.checkIfIsFollower(userId, response.id)
+    const IsMyProfile = id == userId;
+    return {...response, isFollower, IsMyProfile};
   }
   
 }

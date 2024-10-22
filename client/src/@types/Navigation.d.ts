@@ -8,7 +8,8 @@ export declare global {
       profile: undefined,
       profileConfig: undefined,
       newRecipe: undefined,
-      recipe: {id: string}
+      recipe: {id: string},
+      user: {id: string},
     }
   }
 }

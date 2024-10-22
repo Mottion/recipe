@@ -7,8 +7,8 @@ const IngredientComponent: React.FC<IngredientComponentProps> = ({title, ingredi
     <View>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.ingredientsWrapper}>
-        {ingredients.map(ingredient => (
-          <Text style={styles.ingredient}>●  {ingredient}</Text>
+        {ingredients.map((ingredient, index) => (
+          <Text style={styles.ingredient} key={index}>●  {ingredient}</Text>
         ))}
       </View>
     </View>

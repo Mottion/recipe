@@ -8,13 +8,15 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   text,
   onPress,
   type,
-  style
+  style,
+  icon
 }) => {
   const primary = theme[type];
   const secondary = type == "white" ? theme.purple : theme.white
 
   return (
     <TouchableOpacity style={[styles.container, {backgroundColor: primary, ...style}]} onPress={onPress}>
+      {icon}
       <Text style={[styles.label, {color: secondary}]} >{text}</Text>
     </TouchableOpacity>
   );
