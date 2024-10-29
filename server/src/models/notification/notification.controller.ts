@@ -14,6 +14,12 @@ export class NotificationController {
     return this.notificationService.create(notifiacation, req["user"].id);
   }
 
+  @Post("/read")
+  async read(@Req() req: Request) {
+    return this.notificationService.read(req["user"].id);
+  }
+
+
   @Get()
   async getNotifications(@Param() params: {skip: number}, @Req() req: Request) {
     return this.notificationService.getNotifications(params.skip ?? 0, req["user"].id);

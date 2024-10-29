@@ -6,12 +6,17 @@ import { PageHeaderProps } from "../../@types/components/PageHeaderProps";
 import { theme } from "../../globalStyle/globalStyle";
 import { useAuth } from "../../context/AuthContext";
 import { useBell } from "../../context/BellContext";
+import { useNavigation } from "@react-navigation/native";
 
 const PageHeader: React.FC<PageHeaderProps> = ({title, type, icons = [], search}) => {
   let color = theme[type];
   const size = 28;
-  const {logOut} = useAuth();
   const {notifications} = useBell();
+  const {navigate} = useNavigation();
+
+  const handleNavigation = () => {
+    navigate("notifications")
+  }
   
   const hasUnreadNotification = () => {
     const unreadNotifications = notifications.filter((notification) => !notification.readed);
@@ -25,7 +30,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({title, type, icons = [], search}
         <View style={styles.icons}>
           <View style={styles.bellWrapper}>
             {hasUnreadNotification() && <View style={styles.numberOfNotifications} />}
-            <Feather name="bell" size={size} color={color} onPress={logOut} />
+            <Feather name="bell" size={size} color={color} onPress={handleNavigation} />
           </View>
           {icons.map((icon, index) => icon(size, color, index))}
         </View>

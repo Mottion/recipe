@@ -13,6 +13,11 @@ export class NotificationService {
   async getNotifications(skip: number, userId: string){
     return this.notificationRepository.getNotifications(skip, userId);
   }
+
+  async read(userId: string){
+    const response = await this.notificationRepository.read(userId);
+    return response;
+  }
   
   async create(notifiacation: createNotificationDto, userId: string){
     const response = await this.notificationRepository.createNotification(notifiacation, userId);

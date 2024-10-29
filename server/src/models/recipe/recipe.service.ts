@@ -4,11 +4,13 @@ import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { GetRecipeDto } from './dto/get-recipe.dto';
 import { updateFavoriteDto } from './dto/update-favorite.dto';
 import { Prisma } from '@prisma/client';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class RecipeService {
   constructor(
     private readonly recipeRepository: RecipeRepository,
+    private readonly notificationService: NotificationService
   ){}
 
   async create(recipe: CreateRecipeDto, req: Request){
@@ -41,6 +43,15 @@ export class RecipeService {
 
     const {favoritesBy, ...recipe} = await this.recipeRepository.update(body.id, query, userId);
     const isFavorite = favoritesBy.length > 0 ? true : false;
+    if(isFavorite){
+      this.notificationService.create(
+        {
+          title: "Recipe favorited", 
+          description: `${favoritesBy[0].name} favorited a recipe you created`
+        },
+        body.id
+      )
+    }
     const response = new GetRecipeDto(recipe, userId);
     return {...response, isFavorite}
   }

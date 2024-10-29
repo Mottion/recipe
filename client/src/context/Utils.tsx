@@ -23,9 +23,19 @@ export const UtilsProvider: React.FC<ContextProps> = ({ children }) => {
     return response;
   }
 
+  const formatDate = (input: Date) => {
+    const date = new Date(input);
+    const day =  String(date.getDay()).padStart(2, "0");
+    const month = String(date.getMonth()).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`
+  }
+
   return (
     <UtilsContext.Provider value={{
-      uploadImage
+      uploadImage,
+      formatDate
     }}>
       {children}
     </UtilsContext.Provider>

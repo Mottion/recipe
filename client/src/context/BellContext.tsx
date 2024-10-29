@@ -30,6 +30,8 @@ export const BellProvider: React.FC<ContextProps> = ({ children }) => {
   const onInit = async () => {
     if(!token) return;
 
+    const response = await getNotifications(0);
+
     console.log("Initializing websocket...");
     const socket = io('ws://192.168.18.31:3000');
 
@@ -39,16 +41,15 @@ export const BellProvider: React.FC<ContextProps> = ({ children }) => {
     });
     
     socket.on('notification', (data: any) => {
-      console.log(`Notificação recebida: ${data}`);
-      const oldArray = notifications;
-      setNotifications([...oldArray, data])
+      console.log(`Notificação recebida`);
+      response!.unshift(data);
+      setNotifications([...response!])
     });
     
     socket.on('disconnect', () => {
       console.log('Desconectado do servidor');
     });
 
-    await getNotifications(0);
 
     return ws
   }
@@ -58,18 +59,20 @@ export const BellProvider: React.FC<ContextProps> = ({ children }) => {
 
     setLoading(true);
     const response = await server.getNotifications(skip);
-    console.log("🚀 ~ getNotifications ~ response:", response)
+    console.log("🚀 ~ getNotifications ~ response:", response.length)
 
     if(skip == 0) setNotifications([...response]);
     else setNotifications([...notifications, ...response]);
 
     setLastIndex(notifications.length)
-    setLoading(false)
+    setLoading(false);
+    return response
   } 
 
   return (
     <BellContext.Provider value={{
-      notifications
+      notifications,
+      setNotifications
     }}>
       {children}
     </BellContext.Provider>

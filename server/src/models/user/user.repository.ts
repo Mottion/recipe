@@ -64,7 +64,7 @@ export class UserRepository {
       data: data,
       select: {
         ...pickSelect(keys) as Prisma.UserSelect,
-        followers: {where: {id: userId}, select: {id: true}}
+        followers: {where: {id: userId}, select: {id: true, name: true}}
       },
     });
     return response;

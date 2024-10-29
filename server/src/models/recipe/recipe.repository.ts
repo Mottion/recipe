@@ -50,7 +50,7 @@ export class RecipeRepository {
       data: data,
       include: {
         ...GetRecipeDto.include.include,
-        favoritesBy: {where: {id: userId}, select: {id: true}},
+        favoritesBy: {where: {id: userId}, select: {id: true, name: true}},
       }
     });
     return response;

@@ -1,5 +1,6 @@
 import { NotificationProps } from "../models/NotificationProps";
 
 export interface BellContextProps {
-  notifications: NotificationProps[]
+  notifications: NotificationProps[],
+  setNotifications: (data: NotificationProps[]) => void;
 }

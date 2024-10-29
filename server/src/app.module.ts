@@ -7,7 +7,6 @@ import { AuthModule } from './providers/auth/auth.module';
 import { TagModule } from './models/tag/tag.module';
 import { JoiPipeModule } from 'nestjs-joi';
 import { RecipeModule } from './models/recipe/recipe.module';
-import { NotificationGateway } from './models/notification/notification.gateway';
 import { NotificationModule } from './models/notification/notification.module';
 
 @Module({
@@ -28,7 +27,7 @@ import { NotificationModule } from './models/notification/notification.module';
     NotificationModule
   ],
   controllers: [],
-  providers: [NotificationGateway],
+  providers: [],
 })
 
 export class AppModule {}

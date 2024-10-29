@@ -7,7 +7,9 @@ import { updateFavoriteDto } from './dto/update-favorite.dto';
 
 @Controller('recipe')
 export class RecipeController {
-  constructor(private readonly recipeService: RecipeService) {}
+  constructor(
+    private readonly recipeService: RecipeService
+  ) {}
 
   @Post()
   async create(@Body() body: CreateRecipeDto, @Req() req: Request){

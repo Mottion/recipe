@@ -151,6 +151,13 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data;
   })
 
+  const readNotification = async () => requestWrapper<{count: number}>(async () => {
+    const {data} = await api.post(`/notifications/read`, {}, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  })  
+
   return (
     <ServerContext.Provider value={{
       uploadImage,
@@ -168,7 +175,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       createRecipe,
       updateUser,
       updateFollow,
-      getNotifications
+      getNotifications,
+      readNotification
     }}>
       {children}
     </ServerContext.Provider >

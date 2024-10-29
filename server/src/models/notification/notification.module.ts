@@ -8,6 +8,6 @@ import { NotificationGateway } from './notification.gateway';
 @Module({
   controllers: [NotificationController],
   providers: [NotificationService, PrismaService, NotificationRepository, NotificationGateway],
-  exports: [NotificationRepository],
+  exports: [NotificationService],
 })
 export class NotificationModule {}

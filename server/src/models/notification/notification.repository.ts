@@ -22,6 +22,17 @@ export class NotificationRepository {
     return response;
   }
 
+
+  async read(
+    userId: string
+  ){
+    const response = this.prisma.notification.updateMany({
+      where: {user_id: userId},
+      data: {readed: true},
+    })
+    return response;
+  }
+
   async createNotification(
     data: createNotificationDto,
     userId: string

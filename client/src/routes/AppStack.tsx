@@ -12,6 +12,7 @@ import { theme } from "../globalStyle/globalStyle";
 import RecipeScreen from "../screens/recipe/RecipeScreen";
 import UserScreen from "../screens/user/UserScreen";
 import SaveScreen from "../screens/save/SaveScreen";
+import NotificationsScreen from "../screens/notifications/NotificationsScreen";
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
@@ -35,7 +36,8 @@ const AppStack = () => {
         <Screen name="recipe" component={RecipeScreen} />
         <Screen name="user" component={UserScreen} />
         <Screen name="save" component={SaveScreen} />
-      </Navigator>
+        <Screen name="notifications" component={NotificationsScreen} />
+        </Navigator>
       <FooterComponent />
     </>
   )

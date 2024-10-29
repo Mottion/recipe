@@ -6,6 +6,7 @@ import { AccessTokenDto } from '../../providers/auth/dto/access-token.dto';
 import { updateUserDto } from './dto/update-user-dto';
 import { updateFollowDto } from './dto/update-follow.dto';
 import { Prisma } from '@prisma/client';
+import { NotificationService } from '../notification/notification.service';
 const fs = require('fs');
 
 @Injectable()
@@ -13,7 +14,8 @@ export class UserService {
 
   constructor(
     private readonly userRepository: UserRepository,
-    private jwtService: JwtService
+    private readonly jwtService: JwtService,
+    private readonly notificationService: NotificationService
   ){}
 
   async checkFileType(file: Express.Multer.File) {
@@ -85,6 +87,15 @@ export class UserService {
 
     const {followers, ...response} = await this.userRepository.update(body.id, query, requesterId);
     const isFollower = followers.length > 0 ? true : false;
+    if(isFollower){
+      this.notificationService.create(
+        {
+          title: "New Follower", 
+          description: `${followers[0].name} started following you`
+        },
+        body.id
+      )
+    }
     return {...response, isFollower}
   }
 
