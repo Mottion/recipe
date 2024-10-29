@@ -72,17 +72,18 @@ export function fakeTagComplete() {
 }
 export function fakeNotification() {
   return {
-    image: faker.image.avatar(),
-    name: faker.person.fullName(),
+    title: faker.lorem.words(5),
     description: faker.lorem.words(5),
   };
 }
 export function fakeNotificationComplete() {
   return {
     id: faker.string.uuid(),
-    image: faker.image.avatar(),
-    name: faker.person.fullName(),
+    title: faker.lorem.words(5),
     description: faker.lorem.words(5),
+    createAt: new Date(),
+    user_id: faker.string.uuid(),
+    readed: false,
   };
 }
 export function fakeMessage() {

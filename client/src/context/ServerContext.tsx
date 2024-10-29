@@ -9,6 +9,7 @@ import { RecipeProps } from "../@types/models/RecipeProps";
 import { TagProps } from "../@types/models/TagProps";
 import { CreateRecipeProps } from "../@types/dtos/CreateRecipeProps";
 import { UpdateUserProps } from "../@types/dtos/UpdateUserProps";
+import { NotificationProps } from "../@types/models/NotificationProps";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
@@ -142,6 +143,14 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
+  const getNotifications = async (skip?: number) => requestWrapper<NotificationProps[]>(async () => {
+    const {data} = await api.get(`/notifications`, {
+      params: {skip},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  })
+
   return (
     <ServerContext.Provider value={{
       uploadImage,
@@ -158,7 +167,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       getUserRecipes,
       createRecipe,
       updateUser,
-      updateFollow
+      updateFollow,
+      getNotifications
     }}>
       {children}
     </ServerContext.Provider >

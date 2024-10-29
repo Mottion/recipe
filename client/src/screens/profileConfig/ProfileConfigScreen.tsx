@@ -12,6 +12,7 @@ import { useServer } from "../../context/ServerContext";
 import { useNavigation } from "@react-navigation/native";
 import { useUtils } from "../../context/Utils";
 import { baseUrl } from "../../services/axiosConfig";
+import { useAuth } from "../../context/AuthContext";
 
 const ProfileConfigScreen: React.FC = () => {
   const [image, setImage] = useState<string | undefined>();
@@ -22,6 +23,7 @@ const ProfileConfigScreen: React.FC = () => {
   const server = useServer();
   const navigation = useNavigation();
   const utils = useUtils();
+  const {logOut} = useAuth();
 
   useEffect(() => {
     getMyUser();
@@ -71,6 +73,7 @@ const ProfileConfigScreen: React.FC = () => {
       <View>
         <CustomButton onPress={updateUser} text="SAVE" type="purple" />
         <CustomButton onPress={() => navigation.navigate("profile")} text="CANCEL" type="white" />
+        <CustomButton onPress={logOut} text="LOGOUT" type="red" />
       </View>
 
     </LinearGradient>

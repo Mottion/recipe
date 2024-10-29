@@ -1,5 +1,6 @@
 import { CreateRecipeProps } from "../dtos/CreateRecipeProps";
 import { UpdateUserProps } from "../dtos/UpdateUserProps";
+import { NotificationProps } from "../models/NotificationProps";
 import { RecipeProps } from "../models/RecipeProps";
 import { TagProps } from "../models/TagProps";
 import { UserProps } from "../models/UserProps";
@@ -20,4 +21,5 @@ export interface ServerContextProps{
   createRecipe: (request: CreateRecipeProps) => Promise<RecipeProps>,
   updateUser: (request: UpdateUserProps) => Promise<UserProps>;
   updateFollow: (id: string, newState: boolean) => Promise<UserProps>;
+  getNotifications: (skip?: number) => Promise<NotificationProps[]>
 }

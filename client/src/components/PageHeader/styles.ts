@@ -16,6 +16,18 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 15
   },
+  bellWrapper: {
+    position: "relative",
+  },
+  numberOfNotifications: {
+    position: "absolute",
+    backgroundColor: "red",
+    borderRadius: 50,
+    zIndex:2,
+    width: 12,
+    height: 12,
+    marginLeft: 2
+  },
   searchWrapper: {
     width: "100%",
     backgroundColor: "#a8a8a86d",

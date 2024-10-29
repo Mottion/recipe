@@ -31,7 +31,7 @@ model User {
   follows          User[]         @relation(name: "Followers")
   recipes          Recipe[]       @relation("RecipeOwner")
   favorites        Recipe[]       @relation("Favorite")
-  notifications    Notification[]
+  notifications    Notification[] @relation("Notifications")
   messagesSent     Message[]      @relation("Sent")
   messagesReceived Message[]      @relation("Received")
   ratings          Rating[]
@@ -39,7 +39,6 @@ model User {
   @@index([id], name: "IDX_USER_ID", type: Hash)
   @@index([email], name: "IDX_USER_EMAIL", type: Hash)
 }
-
 
 model Recipe {
   id                  String   @id @default(uuid())
@@ -82,11 +81,13 @@ model Tag {
 }
 
 model Notification {
-  id          String @id @default(uuid())
-  image       String
-  name        String
+  id          String   @id @default(uuid())
+  title       String
   description String
-  forUsers    User[]
+  createAt    DateTime @default(now())
+  user_id     String
+  readed      Boolean  @default(false)
+  user        User     @relation("Notifications", references: [id], fields: [user_id])
 
   @@index([id], name: "IDX_NOTIFICATION_ID", type: Hash)
 }

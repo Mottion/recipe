@@ -52,10 +52,12 @@ Table Tag {
 
 Table Notification {
   id String [pk]
-  image String [not null]
-  name String [not null]
+  title String [not null]
   description String [not null]
-  forUsers User [not null]
+  createAt DateTime [default: `now()`, not null]
+  user_id String [not null]
+  readed Boolean [not null, default: false]
+  user User [not null]
 }
 
 Table Message {
@@ -78,11 +80,6 @@ Table Favorite {
   favoritesbyId String [ref: > User.id]
 }
 
-Table NotificationToUser {
-  notificationsId String [ref: > Notification.id]
-  forusersId String [ref: > User.id]
-}
-
 Ref: Recipe.ownerId > User.id
 
 Ref: Recipe.tagId > Tag.id
@@ -90,6 +87,8 @@ Ref: Recipe.tagId > Tag.id
 Ref: Rating.ratedById > User.id
 
 Ref: Rating.recipeId > Recipe.id
+
+Ref: Notification.user_id > User.id
 
 Ref: Message.receiverId > User.id
 
