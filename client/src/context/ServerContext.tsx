@@ -10,6 +10,7 @@ import { TagProps } from "../@types/models/TagProps";
 import { CreateRecipeProps } from "../@types/dtos/CreateRecipeProps";
 import { UpdateUserProps } from "../@types/dtos/UpdateUserProps";
 import { NotificationProps } from "../@types/models/NotificationProps";
+import { MessagesProps } from "../@types/models/MessagesProps";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
@@ -156,7 +157,30 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     return data;
-  })  
+  })
+
+  const getMessages = async (skip?: number) => requestWrapper<MessagesProps[]>(async () => {
+    const {data} = await api.get(`/message`, {
+      params: {skip},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  })
+
+  const readMessages = async (userId: string) => requestWrapper<any>(async () => {
+    const {data} = await api.post(`/message/read/${userId}`, 
+      null,
+      {headers: { Authorization: `Bearer ${token}` }}
+    );
+    return data;
+  })
+
+  const getUserMessages = async (userId: string) => requestWrapper<any>(async () => {
+    const {data} = await api.get(`/message/read/${userId}`,
+      {headers: { Authorization: `Bearer ${token}` }}
+    );
+    return data;
+  })
 
   return (
     <ServerContext.Provider value={{
@@ -176,7 +200,8 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       updateUser,
       updateFollow,
       getNotifications,
-      readNotification
+      readNotification,
+      getMessages
     }}>
       {children}
     </ServerContext.Provider >

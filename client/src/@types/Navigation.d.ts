@@ -11,7 +11,8 @@ export declare global {
       recipe: {id: string},
       user: {id: string},
       save: undefined,
-      notifications: undefined
+      notifications: undefined,
+      messages: undefined
     }
   }
 }

@@ -13,9 +13,9 @@ import { env } from 'process';
 import { Server, Socket } from 'socket.io';
 
 @WebSocketGateway({ namespace: '/', cors: '*' })
-export class NotificationGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
-  private readonly logger = new Logger(NotificationGateway.name);
+  private readonly logger = new Logger(SocketGateway.name);
   private jwtService: JwtService = new JwtService()
 
   private clients: {[id: string] : Socket} = {};
@@ -35,6 +35,14 @@ export class NotificationGateway implements OnGatewayConnection, OnGatewayDiscon
     if(!client) return;
 
     client.emit("notification", notification);
+  }
+
+  sendMessage(userId: string, message: Prisma.MessageGetPayload<{include: {sender: {select: {name: true, image: true}}}}>){
+    const client = this.clients[userId];
+    console.log("🚀 ~ SocketGateway ~ sendMessage ~ client:", client.id)
+    if(!client) return;
+
+    client.emit("message", message);
   }
 
   @SubscribeMessage("register")

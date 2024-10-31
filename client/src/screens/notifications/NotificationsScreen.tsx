@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { styles } from "./styles";
 import { ScrollView, View } from 'react-native';
 import PageHeader from '../../components/PageHeader';
-import { useBell } from '../../context/BellContext';
+import { useSocket } from '../../context/SocketContext';
 import NotificationComponent from '../../components/Notification';
 import { useServer } from '../../context/ServerContext';
 
 const NotificationsScreen: React.FC = () => {
   const server = useServer();
-  const {notifications} = useBell();
+  const {notifications} = useSocket();
 
   useEffect(() => {
     readNotifications();

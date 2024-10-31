@@ -27,7 +27,7 @@ export class NotificationRepository {
     userId: string
   ){
     const response = this.prisma.notification.updateMany({
-      where: {user_id: userId},
+      where: {user_id: userId, readed: false},
       data: {readed: true},
     })
     return response;

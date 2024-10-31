@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { theme } from "../../globalStyle/globalStyle";
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,4 +10,5 @@ export const styles = StyleSheet.create({
     marginBottom: 50
   },
   scroll: {},
+  
 })

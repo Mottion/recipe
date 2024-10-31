@@ -15,5 +15,14 @@ export const styles = StyleSheet.create({
     width: "100%",
     borderTopColor: "rgba(0,0,0,0.25)",
     borderTopWidth: 2,
+  },
+  mark: {
+    position: "absolute",
+    backgroundColor: "red",
+    borderRadius: 50,
+    zIndex:2,
+    width: 12,
+    height: 12,
+    marginTop: 2
   }
 }) 

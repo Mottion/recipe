@@ -5,7 +5,7 @@ import Notify from './src/components/Notify/Notify';
 import { NotifyProvider } from './src/context/NotifyContext';
 import { ServerProvider } from './src/context/ServerContext';
 import { UtilsProvider } from './src/context/Utils';
-import { BellProvider } from './src/context/BellContext';
+import { SocketProvider } from './src/context/SocketContext';
 
 export default function App() {
 
@@ -23,9 +23,9 @@ export default function App() {
       <AuthProvider>
         <ServerProvider>
           <UtilsProvider>
-            <BellProvider>
+            <SocketProvider>
               <Routes/>
-            </BellProvider>
+            </SocketProvider>
             <Notify />
           </UtilsProvider>
         </ServerProvider>

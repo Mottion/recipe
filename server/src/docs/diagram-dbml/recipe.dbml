@@ -65,7 +65,8 @@ Table Message {
   senderId String [not null]
   receiverId String [not null]
   text String [not null]
-  created Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  readed Boolean [not null, default: false]
   receiver User [not null]
   sender User [not null]
 }

@@ -6,15 +6,24 @@ import { Fontisto } from '@expo/vector-icons';
 import { styles } from "./styles";
 import { theme } from "../../globalStyle/globalStyle";
 import { useNavigation } from "@react-navigation/native";
+import { useSocket } from "../../context/SocketContext";
 
 const FooterComponent: React.FC = () => {
   const {navigate} = useNavigation();
+  const {messages} = useSocket();
+
+  const hasNewMessage = () => {
+    messages.filter((e) => !e.readed)
+  }
 
   return (
     <View style={styles.container}>
       <Entypo onPress={() => {navigate("home")}} name="home" size={30} color={theme.primary} />
       <FontAwesome5 onPress={() => {navigate("profile")}} name="user-circle" size={30} color={theme.primary} />
-      <MaterialCommunityIcons name="email-outline" size={30} color={theme.primary} />
+      <View>
+        <View style={styles.mark} />
+        <MaterialCommunityIcons onPress={() => {navigate("messages")}} name="email-outline" size={30} color={theme.primary} />
+      </View>
       <Fontisto onPress={() => {navigate("save")}} name="favorite" size={30} color={theme.primary} />
     </View>
   )

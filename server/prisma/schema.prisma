@@ -93,13 +93,14 @@ model Notification {
 }
 
 model Message {
-  id         String @id @default(uuid())
+  id         String   @id @default(uuid())
   senderId   String
   receiverId String
   text       String
-  created    Int
-  receiver   User   @relation("Received", fields: [receiverId], references: [id])
-  sender     User   @relation("Sent", fields: [senderId], references: [id])
+  createdAt  DateTime @default(now())
+  readed      Boolean  @default(false)
+  receiver   User     @relation("Received", fields: [receiverId], references: [id])
+  sender     User     @relation("Sent", fields: [senderId], references: [id])
 
   @@index([senderId, receiverId], name: "IDX_TALK_ID") // default type: B-Tree
 }

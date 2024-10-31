@@ -89,7 +89,6 @@ export function fakeNotificationComplete() {
 export function fakeMessage() {
   return {
     text: faker.lorem.words(5),
-    created: faker.number.int(),
   };
 }
 export function fakeMessageComplete() {
@@ -98,6 +97,7 @@ export function fakeMessageComplete() {
     senderId: faker.string.uuid(),
     receiverId: faker.string.uuid(),
     text: faker.lorem.words(5),
-    created: faker.number.int(),
+    createdAt: new Date(),
+    readed: false,
   };
 }

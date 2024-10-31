@@ -4,14 +4,13 @@ import { Feather } from '@expo/vector-icons';
 import { styles } from "./styles";
 import { PageHeaderProps } from "../../@types/components/PageHeaderProps";
 import { theme } from "../../globalStyle/globalStyle";
-import { useAuth } from "../../context/AuthContext";
-import { useBell } from "../../context/BellContext";
 import { useNavigation } from "@react-navigation/native";
+import { useSocket } from "../../context/SocketContext";
 
 const PageHeader: React.FC<PageHeaderProps> = ({title, type, icons = [], search}) => {
   let color = theme[type];
   const size = 28;
-  const {notifications} = useBell();
+  const {notifications} = useSocket();
   const {navigate} = useNavigation();
 
   const handleNavigation = () => {

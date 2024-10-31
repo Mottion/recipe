@@ -8,6 +8,7 @@ import { TagModule } from './models/tag/tag.module';
 import { JoiPipeModule } from 'nestjs-joi';
 import { RecipeModule } from './models/recipe/recipe.module';
 import { NotificationModule } from './models/notification/notification.module';
+import { MessageModule } from './models/message/message.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { NotificationModule } from './models/notification/notification.module';
     TagModule,
     JoiPipeModule,
     RecipeModule,
-    NotificationModule
+    NotificationModule,
+    MessageModule,
   ],
   controllers: [],
   providers: [],

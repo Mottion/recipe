@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { NotificationRepository } from "./notification.repository";
 import { createNotificationDto } from "./dto/create-notification.dto";
-import { NotificationGateway } from "./notification.gateway";
+import { SocketGateway } from "../../gateways/socket.gateway";
 
 @Injectable()
 export class NotificationService {
   constructor(
     private readonly notificationRepository: NotificationRepository,
-    private readonly notificationGateway: NotificationGateway
+    private readonly socketGateway: SocketGateway
   ){}
 
   async getNotifications(skip: number, userId: string){
@@ -21,7 +21,7 @@ export class NotificationService {
   
   async create(notifiacation: createNotificationDto, userId: string){
     const response = await this.notificationRepository.createNotification(notifiacation, userId);
-    this.notificationGateway.sendNotification(userId, response)
+    this.socketGateway.sendNotification(userId, response)
     return response;
   }
 }
