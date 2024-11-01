@@ -98,7 +98,8 @@ export const SocketProvider: React.FC<ContextProps> = ({ children }) => {
   return (
     <SocketContext.Provider value={{
       notifications,
-      messages
+      messages,
+      setMessages
     }}>
       {children}
     </SocketContext.Provider>

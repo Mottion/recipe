@@ -39,7 +39,6 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   sendMessage(userId: string, message: Prisma.MessageGetPayload<{include: {sender: {select: {name: true, image: true}}}}>){
     const client = this.clients[userId];
-    console.log("🚀 ~ SocketGateway ~ sendMessage ~ client:", client.id)
     if(!client) return;
 
     client.emit("message", message);

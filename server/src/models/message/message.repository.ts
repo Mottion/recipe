@@ -44,7 +44,8 @@ export class MessageRepository {
         {receiverId: targetUser, senderId: requesterUser},
         {receiverId: requesterUser, senderId: targetUser},
       ]},
-      skip: 20 * skip
+      skip: 20 * skip,
+      orderBy: {createdAt: "desc"},
     });
     return response;
   }

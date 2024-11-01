@@ -13,6 +13,7 @@ export class MessageService {
   async create(message: messageCreateDto, userId: string){
     const response = await this.messageRepository.create(message, userId);
     this.socketGateway.sendMessage(message.receiver, response);
+    delete response.sender;
     return response;
   }
 

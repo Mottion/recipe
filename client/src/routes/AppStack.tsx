@@ -14,6 +14,7 @@ import UserScreen from "../screens/user/UserScreen";
 import SaveScreen from "../screens/save/SaveScreen";
 import NotificationsScreen from "../screens/notifications/NotificationsScreen";
 import MessagesScreen from "../screens/messages/MessagesScreen";
+import UserMessagesScreen from "../screens/userMessages/UserMessagesScreen";
 
 const {Screen, Navigator} = createNativeStackNavigator();
 
@@ -39,7 +40,8 @@ const AppStack = () => {
         <Screen name="save" component={SaveScreen} />
         <Screen name="notifications" component={NotificationsScreen} />
         <Screen name="messages" component={MessagesScreen} />
-        </Navigator>
+        <Screen name="messagesUser" component={UserMessagesScreen} />
+      </Navigator>
       <FooterComponent />
     </>
   )

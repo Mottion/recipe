@@ -69,7 +69,7 @@ const UserScreen: React.FC = () => {
         icon={heartIcon}
       />
       <CustomButton 
-        onPress={() => {navigation.navigate("newRecipe")}} 
+        onPress={() => {navigation.navigate("messagesUser", {id: params.id})}} 
         type="white" 
         text="MESSAGE" 
         icon={messageIcon}

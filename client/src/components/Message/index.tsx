@@ -1,32 +1,16 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { MessageProps } from '../../@types/models/MessageProps';
+import { Text, View } from 'react-native';
 import { styles } from './styles';
-import { MessagesProps } from '../../@types/models/MessagesProps';
-import { useUtils } from '../../context/Utils';
-import { useNavigation } from '@react-navigation/native';
 
-export interface MessageProps {
-  message: MessagesProps
-}
-
-const MessageComponent: React.FC<MessageProps > = ({message}) => {
-  const {formatDate} = useUtils();
-  const {navigate} = useNavigation();
-
+const MessageComponent: React.FC<{message: MessageProps, targetUserId: string}> = ({message, targetUserId}) => {
+  const isTargetUser = message.senderId == targetUserId;
+  const margin = isTargetUser ? {marginLeft: 50} : {marginRight: 50};
+  
   return (
-    <TouchableOpacity onPress={() => navigate("home")} style={styles.message}>
-      <Image style={styles.image} source={message.sender.image ? {uri: message.sender.image} : require("../../../assets/user.jpg")}/>
-      <View style={styles.contentWrapper}>
-        <View style={styles.infoWrapper}>
-          <Text style={styles.title}>{message.sender.name}</Text>
-          <Text>{formatDate(message.createdAt)}</Text>
-        </View>
-        <View style={styles.markWrapper}>
-          {!message.readed && <View style={styles.mark}></View>}
-          <Text style={styles.description}>{message.text}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+    <View style={[styles.container, margin]}>
+      <Text>{message.text}</Text>
+    </View>
   )
 }
 

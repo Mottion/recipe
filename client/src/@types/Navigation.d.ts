@@ -12,7 +12,8 @@ export declare global {
       user: {id: string},
       save: undefined,
       notifications: undefined,
-      messages: undefined
+      messagesUser: {id: string},
+      messages: undefined,
     }
   }
 }

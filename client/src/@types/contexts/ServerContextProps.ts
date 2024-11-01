@@ -1,5 +1,6 @@
 import { CreateRecipeProps } from "../dtos/CreateRecipeProps";
 import { UpdateUserProps } from "../dtos/UpdateUserProps";
+import { MessageProps } from "../models/MessageProps";
 import { MessagesProps } from "../models/MessagesProps";
 import { NotificationProps } from "../models/NotificationProps";
 import { RecipeProps } from "../models/RecipeProps";
@@ -24,5 +25,8 @@ export interface ServerContextProps{
   updateFollow: (id: string, newState: boolean) => Promise<UserProps>;
   getNotifications: (skip?: number) => Promise<NotificationProps[]>;
   readNotification: () => Promise<{count: number}>,
-  getMessages: (skip?: number) => Promise<MessagesProps[]>
+  getMessages: (skip?: number) => Promise<MessagesProps[]>,
+  readMessages: (userId: string) => Promise<{count: number}>,
+  getUserMessages: (userId: string, skip: number) => Promise<MessageProps[]>,
+  createMessage: (text: string, receiver: string) => Promise<MessageProps>
 }

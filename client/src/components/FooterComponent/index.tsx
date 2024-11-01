@@ -7,21 +7,24 @@ import { styles } from "./styles";
 import { theme } from "../../globalStyle/globalStyle";
 import { useNavigation } from "@react-navigation/native";
 import { useSocket } from "../../context/SocketContext";
+import { useEffect, useState } from "react";
 
 const FooterComponent: React.FC = () => {
   const {navigate} = useNavigation();
   const {messages} = useSocket();
+  const [hasNewMessage, setHasNewMessage] = useState<boolean>(true);
 
-  const hasNewMessage = () => {
-    messages.filter((e) => !e.readed)
-  }
+  useEffect(() => {
+    const newMessage = messages.filter((e) => {return e?.readed == false})
+    setHasNewMessage(newMessage.length > 0)
+  }, [messages]);
 
   return (
     <View style={styles.container}>
       <Entypo onPress={() => {navigate("home")}} name="home" size={30} color={theme.primary} />
       <FontAwesome5 onPress={() => {navigate("profile")}} name="user-circle" size={30} color={theme.primary} />
       <View>
-        <View style={styles.mark} />
+        {hasNewMessage && <View style={styles.mark} />}
         <MaterialCommunityIcons onPress={() => {navigate("messages")}} name="email-outline" size={30} color={theme.primary} />
       </View>
       <Fontisto onPress={() => {navigate("save")}} name="favorite" size={30} color={theme.primary} />

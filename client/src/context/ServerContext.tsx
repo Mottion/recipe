@@ -11,6 +11,7 @@ import { CreateRecipeProps } from "../@types/dtos/CreateRecipeProps";
 import { UpdateUserProps } from "../@types/dtos/UpdateUserProps";
 import { NotificationProps } from "../@types/models/NotificationProps";
 import { MessagesProps } from "../@types/models/MessagesProps";
+import { MessageProps } from "../@types/models/MessageProps";
 
 const ServerContext = createContext<ServerContextProps>({} as ServerContextProps)
 
@@ -167,7 +168,7 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data;
   })
 
-  const readMessages = async (userId: string) => requestWrapper<any>(async () => {
+  const readMessages = async (userId: string) => requestWrapper<{count: number}>(async () => {
     const {data} = await api.post(`/message/read/${userId}`, 
       null,
       {headers: { Authorization: `Bearer ${token}` }}
@@ -175,12 +176,25 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data;
   })
 
-  const getUserMessages = async (userId: string) => requestWrapper<any>(async () => {
-    const {data} = await api.get(`/message/read/${userId}`,
+  const getUserMessages = async (userId: string, skip: number) => requestWrapper<MessageProps[]>(async () => {
+    const {data} = await api.get(`/message/${userId}`,{
+      params: {skip},
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    );
+    return data;
+  })
+
+
+  const createMessage = async (text: string, receiver: string) => requestWrapper<MessageProps>(async () => {
+    const request = {text, receiver};
+    const {data} = await api.post(`/message`,
+      request,
       {headers: { Authorization: `Bearer ${token}` }}
     );
     return data;
   })
+
 
   return (
     <ServerContext.Provider value={{
@@ -201,7 +215,10 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       updateFollow,
       getNotifications,
       readNotification,
-      getMessages
+      getMessages,
+      readMessages,
+      getUserMessages,
+      createMessage
     }}>
       {children}
     </ServerContext.Provider >

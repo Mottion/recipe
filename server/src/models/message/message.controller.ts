@@ -25,7 +25,7 @@ export class MessageController {
     return this.messageService.getMessages(req["user"].id);
   }
 
-  @Get(":/id")
+  @Get("/:id")
   async getUserMessages(@Req() req: Request, @Param() params: pathId,  @Query() query: QueryMessageDto){
     return this.messageService.getUserMessages(req["user"].id, params.id, +query.skip);
   }
