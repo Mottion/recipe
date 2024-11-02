@@ -38,7 +38,7 @@ export class NotificationRepository {
     userId: string
   ){
     const response = this.prisma.notification.create({
-      data: {...data, user: {connect: {id: userId}}}
+      data: {...data, user_id: userId}
     })
     return response;
   }

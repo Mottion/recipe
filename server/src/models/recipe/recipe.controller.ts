@@ -4,6 +4,7 @@ import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { pathId } from 'src/utils/dtos/path-id';
 import { QueryRecipeDto } from './dto/query-recipe.dto';
 import { updateFavoriteDto } from './dto/update-favorite.dto';
+import { RatingRecipeDto } from './dto/rating-recipe.dto';
 
 @Controller('recipe')
 export class RecipeController {
@@ -14,6 +15,11 @@ export class RecipeController {
   @Post()
   async create(@Body() body: CreateRecipeDto, @Req() req: Request){
     return await this.recipeService.create(body, req)
+  }
+
+  @Post("/rating")
+  async rating(@Body() body: RatingRecipeDto, @Req() req: Request){
+    return await this.recipeService.rating(body, req["user"].id)
   }
 
   @Patch("/favorite")

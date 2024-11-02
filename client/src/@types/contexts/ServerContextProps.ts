@@ -21,6 +21,7 @@ export interface ServerContextProps{
   getMyUser: () => Promise<UserProps>,
   getUser: (tag: string) => Promise<UserProps>,
   createRecipe: (request: CreateRecipeProps) => Promise<RecipeProps>,
+  rating: (stars: number, id: string) => Promise<any>
   updateUser: (request: UpdateUserProps) => Promise<UserProps>;
   updateFollow: (id: string, newState: boolean) => Promise<UserProps>;
   getNotifications: (skip?: number) => Promise<NotificationProps[]>;

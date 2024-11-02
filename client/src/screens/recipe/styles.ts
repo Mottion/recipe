@@ -47,12 +47,16 @@ export const styles = StyleSheet.create({
     marginRight: "auto"
   },
   rating: {
+    zIndex: 2,
+    backgroundColor: theme.white,
+    marginRight: 10,
+    display: "flex",
+    flexDirection: "row"
+  },
+  number: {
     color: theme.yellow,
     fontWeight: "500",
     fontSize: 22,
-    zIndex: 2,
-    backgroundColor: theme.white,
-    marginRight: 10
   },
   infos: {
     lineHeight: 15,
@@ -60,5 +64,35 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 2
   },
-
+  modalContainer: {
+    backgroundColor: "#00000030",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  modal: {
+    width: "90%",
+    backgroundColor: "#FFFFFF",
+    padding: 10,
+    borderRadius: 5
+  },
+  title: {
+    fontSize: 22,
+    width: "100%",
+    textAlign: "center"
+  },
+  stars: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 5,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10
+  }
 })

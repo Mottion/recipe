@@ -111,6 +111,17 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
     return data
   })
 
+  const rating = (stars: number, id: string) => requestWrapper<any>(async () => {
+    const request = {stars, id}
+    const {data} = await api.post(
+      "/recipe/rating", 
+      request, 
+      {headers: { Authorization: `Bearer ${token}` }}
+    );
+    return data
+  })
+
+
   const getMyUser = async () => {
     const {data} = await api.get("/user", {
       headers: { Authorization: `Bearer ${token}` },
@@ -211,6 +222,7 @@ export const ServerProvider: React.FC<ContextProps> = ({children}) => {
       getMyRecipes,
       getUserRecipes,
       createRecipe,
+      rating,
       updateUser,
       updateFollow,
       getNotifications,

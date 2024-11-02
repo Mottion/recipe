@@ -1,10 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { RecipeRepository } from './recipe.repository';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { GetRecipeDto } from './dto/get-recipe.dto';
 import { updateFavoriteDto } from './dto/update-favorite.dto';
 import { Prisma } from '@prisma/client';
 import { NotificationService } from '../notification/notification.service';
+import { RatingRecipeDto } from './dto/rating-recipe.dto';
 
 @Injectable()
 export class RecipeService {
@@ -49,11 +50,18 @@ export class RecipeService {
           title: "Recipe favorited", 
           description: `${favoritesBy[0].name} favorited a recipe you created`
         },
-        body.id
+        favoritesBy[0].id
       )
     }
     const response = new GetRecipeDto(recipe, userId);
     return {...response, isFavorite}
+  }
+
+  async rating(rating: RatingRecipeDto, userId: string){
+    if(rating.stars > 5 || rating.stars < 0){
+      throw new BadRequestException("the number of stars must be a number between 0 and 5");
+    }
+    return await this.recipeRepository.rating(rating, userId);
   }
 
   async getMyFavorites(skip: number | undefined, take: number | undefined, userId: string){
