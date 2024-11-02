@@ -48,9 +48,9 @@ Antes de iniciar o projeto, verifique se você possui os seguintes requisitos in
       cd /recipe/client
     ```
 2. Instale as dependências:
-  ```bash
-npm install
-  ```
+     ```bash
+   npm install
+     ```
 
 ## Executando o Projeto
 Para executar o projeto, você deverá ter 3 bash abertos: um para executar o client, outro para executar a API Restfull, e um ultimo para executar o banco de dados Postgress.
