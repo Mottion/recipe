@@ -2,6 +2,23 @@
 
 Recipe é uma plataforma mobile para vizualizar e ranquear receitas e pratos.
 
+### Interface do projeto
+![Descrição da Imagem](client/assets/image-wrapper-1.png)
+![Descrição da Imagem](client/assets/image-wrapper-2.png)
+
+## Tecnologias do projeto:
+   - Front end: React Native, Typescript, Axios,React Navigation.
+   - Back end: PostgreSQL, NodeJs, NestJS, PrismaORM, Docker, Docker-compose, Joi, Jest.
+
+## Pontos de atenção:
+   Esse projeto foi feito com o intuito de estudar Arquitetura de software, Design Patterns e Boas práticas de Programação. Das funcionalidades mais interessantes do projeto eu resalto:
+   - Sistema de chat em tempo real
+   - Sistema de notificações em tempo real
+   - Otimização de banco de dados através de consultas limpas
+   - Otimização de banco de dados através de Indexes
+   - Sistema de autenticação com JWT
+   - Upload de imagem da galeria do celular, com salvamento no proprio servidor
+
 ## Pré-requisitos
 
 Antes de iniciar o projeto, verifique se você possui os seguintes requisitos instalados:
@@ -77,5 +94,3 @@ Para executar o projeto, você deverá ter 3 bash abertos: um para executar o cl
   ```bash
     npm run android
   ```
-
-### Detalhes do Proejeto
