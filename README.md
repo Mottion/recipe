@@ -1,4 +1,4 @@
-# Nome do Projeto
+# Recipe 
 
 Recipe é uma plataforma mobile para vizualizar e ranquear receitas e pratos.
 
